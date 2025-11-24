@@ -1,0 +1,2 @@
+# shopify-ecoglow
+Shopify Theme
