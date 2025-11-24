@@ -1,0 +1,235 @@
+<!-- HERO SECTION -->
+<section id="hero-slider">
+    <div class="hero-slider__wrapper">
+        {% for block in section.blocks %}
+            <div>
+                <div class="hero-slider__slide" style="background-image: url('{{ block.settings.slide_image | image_url }}');">
+                    {% if block.settings.title != blank %}
+                        <h1>{{ block.settings.title }}</h1>
+                      {% endif %}
+                      {% if block.settings.description != blank %}
+                        <h4><span class="left-wing"></span>{{ block.settings.description }}<span class="right-wing"></span></h4>
+                      {% endif %}
+                      {% if block.settings.button_label != blank %}
+                        <a href="{{ block.settings.button_link }}" class="btn btn--with-icon"><i class="fas fa-angle-double-right"></i>{{- block.settings.button_label -}}</a>
+                      {% endif %}
+                </div>
+            </div>
+          {% endfor %}
+    </div>
+    <span class="hero-slider__button hero-slider__button--prev"><i class="fa fa-2x fa-chevron-left" aria-hidden="true"></i></span>
+    <span class="hero-slider__button hero-slider__button--next"><i class="fa fa-2x fa-chevron-right" aria-hidden="true"></i></span>
+</section>
+  
+<style>
+    #hero-slider {
+        position: relative;
+        height: 100vh;
+   }
+    #hero-slider .hero-slider__slide {
+        height: 100vh;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: white;
+   }
+    #hero-slider .hero-slider__slide h1 {
+        font-size: 48px;
+   }
+    @media (min-width: 576px) {
+        #hero-slider .hero-slider__slide h1 {
+            font-size: 78px;
+       }
+   }
+    @media (min-width: 768px) {
+        #hero-slider .hero-slider__slide h1 {
+            font-size: 98px;
+       }
+   }
+    @media (min-width: 992px) {
+        #hero-slider .hero-slider__slide h1 {
+            font-size: 124px;
+       }
+   }
+    #hero-slider .hero-slider__slide h4 {
+        position: relative;
+        margin-bottom: 20px;
+        font-weight: normal;
+        font-size: 18px;
+   }
+    @media (min-width: 576px) {
+        #hero-slider .hero-slider__slide h4 {
+            font-size: 24px;
+       }
+   }
+    @media (min-width: 768px) {
+        #hero-slider .hero-slider__slide h4 {
+            font-size: 28px;
+       }
+   }
+    @media (min-width: 992px) {
+        #hero-slider .hero-slider__slide h4 {
+            font-size: 36px;
+       }
+   }
+    #hero-slider .hero-slider__slide h4 .left-wing, #hero-slider .hero-slider__slide h4 .right-wing {
+        display: block;
+        position: absolute;
+        width: 100px;
+        top: 50%;
+        transform: translateY(-50%);
+   }
+    #hero-slider .hero-slider__slide h4 .left-wing:before, #hero-slider .hero-slider__slide h4 .right-wing:before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: white;
+        margin-bottom: 2px;
+   }
+    #hero-slider .hero-slider__slide h4 .left-wing:after, #hero-slider .hero-slider__slide h4 .right-wing:after {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 1px;
+        background: white;
+   }
+    #hero-slider .hero-slider__slide h4 .left-wing {
+        right: 100%;
+        margin-right: 10px;
+   }
+    #hero-slider .hero-slider__slide h4 .left-wing:after {
+        float: right;
+   }
+    #hero-slider .hero-slider__slide h4 .right-wing {
+        left: 100%;
+        margin-left: 10px;
+   }
+    #hero-slider .hero-slider__slide a:hover {
+        text-decoration: none;
+   }
+    #hero-slider .hero-slider__button {
+        position: absolute;
+        top: 50%;
+        color: white;
+        height: 50px;
+        transform: translateY(-50%);
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 300ms ease-in-out;
+   }
+    #hero-slider .hero-slider__button:hover {
+        box-shadow: 0px 0px 15px 1px black;
+   }
+    #hero-slider .hero-slider__button--next {
+        right: 10px;
+   }
+    #hero-slider .hero-slider__button--next i {
+        transform: translateX(2px);
+   }
+    #hero-slider .hero-slider__button--prev {
+        left: 10px;
+   }
+    #hero-slider .hero-slider__button--prev i {
+        transform: translateX(-2px);
+   }
+    .btn {
+        background: white;
+        color: #363738;
+        font-weight: bold;
+        outline: none;
+        box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        border-radius: 0;
+        height: 50px;
+        line-height: 50px;
+        display: inline-block;
+        padding: 0;
+        border: none;
+   }
+    .btn:focus {
+        box-shadow: none;
+   }
+    .btn:hover {
+        background: #d82931;
+        color: #fff;
+   }
+    .btn.btn--with-icon {
+        padding-right: 20px;
+   }
+    .btn.btn--with-icon i {
+        padding: 0px 30px 0px 15px;
+        margin-right: 10px;
+        height: 50px;
+        line-height: 50px;
+        vertical-align: bottom;
+        color: white;
+        background: #d82931;
+        clip-path: polygon(0 0, 70% 0, 100% 100%, 0% 100%);
+   }
+    .btn.btn--only-icon {
+        width: 50px;
+   }
+   
+    
+</style>
+  
+{% schema %}
+  {
+    "name": "Hero Slider",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "Slide",
+        "name": "slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "slide_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "BEST SALE"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "THE BLACK PHANTOM"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+            "default": "See More"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Slider",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
+  

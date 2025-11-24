@@ -1,0 +1,91 @@
+{% liquid
+    assign footer_logo = section.settings.footer_logo 
+%}
+<footer class="bg-gray-900">
+    <div class="max-w-screen-xl px-4 pt-16 pb-6 mx-auto sm:px-6 lg:px-8 lg:pt-24">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div>
+          <div class="flex justify-center text-teal-300 sm:justify-start">
+            {% if footer_logo != null %}
+                <a href="{{ routes.root_url }}">
+                    {{ footer_logo | image_url: width: 100 | image_tag:
+                        class: 'footer-logo',
+                        alt: shop.name
+                      }}
+                </a>
+            {% else %}
+                <a href="{{ routes.root_url }}"><h1 class="text-xl font-bold truncate">{{ shop.name }}</h1></a>
+            {% endif %}
+          </div>
+  
+          <p class="max-w-md mx-auto mt-6 leading-relaxed text-center text-gray-400 sm:max-w-xs sm:mx-0 sm:text-left">
+            {{ section.settings.footer_text }}
+          </p>
+  
+        </div>
+        <div class="text-center sm:text-left">
+            <p class="text-lg font-medium text-white">About Us</p>
+
+            <nav class="mt-8">
+                <ul class="space-y-4 text-sm">
+                {% for link in section.settings.aboutus_menu.links %}
+                    <li><a class="text-white transition hover:text-white/75" href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="text-center sm:text-left">
+            <p class="text-lg font-medium text-white">Our Services</p>
+
+            <nav class="mt-8">
+                <ul class="space-y-4 text-sm">
+                {% for link in section.settings.services_menu.links %}
+                    <li><a class="text-white transition hover:text-white/75" href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+                </ul>
+            </nav>
+        </div>
+      </div>
+  
+      <div class="pt-6 mt-12 border-t border-gray-800">
+        <div class="text-center">
+          <p class="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0">
+            &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  {% schema %} 
+    {
+        "name": "Footer",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "footer_logo",
+                "label": "Select Logo",
+                "info": "Recommended size 200X200px"
+            },
+            {
+                "type": "textarea",
+                "id": "footer_text",
+                "default": "Browse our latest products Browse our latest products.",
+                "label": "Abous US"
+            },
+            {
+                "type": "link_list",
+                "id": "aboutus_menu",
+                "label": "About Us",
+                "default": "footer"
+            },
+            {
+                "type": "link_list",
+                "id": "services_menu",
+                "label": "Our Services",
+                "default": "footer"
+            },
+        ]
+    }
+{% endschema %} 

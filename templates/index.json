@@ -1,0 +1,118 @@
+{
+  "sections": {
+    "hero_slider_gVGfLh": {
+      "type": "hero-slider",
+      "blocks": {
+        "slide_Bt6jac": {
+          "type": "Slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/young-female-models-denim_925x_2a3f2961-f805-40dd-802c-4e3029117de4.jpg",
+            "title": "BEST SALE 1",
+            "description": "THE BLACK PHANTOM",
+            "button_label": "See More",
+            "button_link": ""
+          }
+        },
+        "slide_bBztrg": {
+          "type": "Slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/young-hip-woman-at-carnival_925x_06a2fb06-bb03-4fdf-89a8-3c21f9a78f80.jpg",
+            "title": "BEST SALE 2",
+            "description": "THE BLACK PHANTOM",
+            "button_label": "See More",
+            "button_link": ""
+          }
+        },
+        "slide_CJVGDB": {
+          "type": "Slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/smiling-woman-on-snowy-afternoon_925x_e58f5b4e-ce69-47ca-9652-b457137fadbf.jpg",
+            "title": "BEST SALE 3",
+            "description": "THE BLACK PHANTOM",
+            "button_label": "See More",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["slide_Bt6jac", "slide_bBztrg", "slide_CJVGDB"],
+      "settings": {}
+    },
+    "collection_list_fQwY6M": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_item_k4p8yf": {
+          "type": "collection_item",
+          "settings": {
+            "title": "Man's Wear",
+            "collection": "mans-wear"
+          }
+        },
+        "collection_item_zBx8rW": {
+          "type": "collection_item",
+          "settings": {
+            "title": "Woman's Wear",
+            "collection": "womens-wear"
+          }
+        },
+        "collection_item_RDyAWk": {
+          "type": "collection_item",
+          "settings": {
+            "title": "Latest Collection",
+            "collection": "frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_k4p8yf",
+        "collection_item_zBx8rW",
+        "collection_item_RDyAWk"
+      ],
+      "settings": {
+        "section_title": "Collection List",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
+      }
+    },
+    "featured_collection_UABiqr": {
+      "type": "featured-collection",
+      "settings": {
+        "section_title": "Women's Wear",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
+        "featured_collection": "womens-wear"
+      }
+    },
+    "image-banner": {
+      "type": "image-banner",
+      "settings": {
+        "title": "Browse our latest products",
+        "sub_title": "Browse our latest products Browse our latest products.",
+        "button_text": "Shop all",
+        "button_url": "",
+        "bg_image": "shopify://shop_images/e3c81359740db20c970aef3481f05274.png"
+      }
+    },
+    "featured_collection_Mj4Fwf": {
+      "type": "featured-collection",
+      "settings": {
+        "section_title": "Man's Wear",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
+        "featured_collection": "mans-wear"
+      }
+    },
+    "featured_blog_adbKAB": {
+      "type": "featured-blog",
+      "settings": {
+        "section_title": "Blog list",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
+        "featured_blog": "news"
+      }
+    }
+  },
+  "order": [
+    "hero_slider_gVGfLh",
+    "collection_list_fQwY6M",
+    "featured_collection_UABiqr",
+    "image-banner",
+    "featured_collection_Mj4Fwf",
+    "featured_blog_adbKAB"
+  ]
+}

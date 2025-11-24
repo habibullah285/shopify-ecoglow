@@ -1,0 +1,88 @@
+
+  <div class="relative bg-white lg:container lg:mx-auto">
+    <div class="mx-auto pt-14 pb-9">
+      <div class="text-center mb-5">
+        {% if section.settings.section_title != blank %}
+            <h2 class="font-bold text-4xl mb-4">{{ section.settings.section_title }}</h2>
+          {% endif %}
+          {% if section.settings.section_description != blank %}
+            <p class="text-md">{{ section.settings.section_description }}</p>
+          {% endif %}
+      </div>
+      <div class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+        {% for block in section.blocks %}
+          <div class="w-72 bg-white shadow-md rounded-xl duration-500">
+            <a href="{{block.settings.collection.url }}">
+              {% if block.settings.collection.image %}
+                <img
+                  src="{{ block.settings.collection.image.src | img_url: 'medium' }}"
+                  alt="{{ block.settings.collection.title }}"
+                  class="h-80 w-72 object-cover rounded-t-xl"
+                  width="280"
+                  height="320"
+                >
+              {% else %}
+                <img
+                  src="{{ block.settings.collection.products.first.featured_image.src | img_url: 'medium' }}"
+                  alt="{{ block.settings.collection.title }}"
+                  class="h-80 w-72 object-cover rounded-t-xl"
+                  width="280"
+                  height="320"
+                >
+              {% endif %}
+              <div class="px-4 py-3 w-72">
+                <p class="text-lg font-bold text-black truncate block capitalize"><a href="{{block.settings.collection.url }}">{{ block.settings.title }}</a></p>
+              </div>
+            </a>
+          
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+    
+  </div>
+  
+  {% schema %}
+  {
+    "name": "Collection List",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section title",
+        "default": "Collection list"
+      },
+      {
+        "type": "textarea",
+        "id": "section_description",
+        "label": "Section description",
+        "default": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection_item",
+        "name": "Collection Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Collection title"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection List",
+        "category": "Custom"
+      }
+    ]
+  }
+  {% endschema %}
+  

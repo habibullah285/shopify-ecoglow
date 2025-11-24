@@ -1,0 +1,45 @@
+<div class="bg-gray-100">
+    <div class="h-screen flex flex-col justify-center items-center">
+        <h1 class="text-8xl font-bold text-gray-800 mb-4">{{ section.settings.title }}</h1>
+        <p class="text-4xl font-medium text-gray-800 mb-6">{{ section.settings.sub_title }}</p>
+        {% if section.settings.button_url == blank %}
+            {% assign shop_url = shop.secure_url %}
+        {% else %}
+            {% assign shop_url = section.settings.button_url %}
+        {% endif %}
+        <a href="{{ shop_url }}" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 tracking-wider uppercase text-sm">{{ section.settings.button_text }}</a>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Tamplate 404",
+        "tag": "section",
+        "class": "h-screen",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "default": "404",
+                "label": "404 Heading Title"
+            },
+            {
+                "type": "text",
+                "id": "sub_title",
+                "default": "This Pape that you're looking for is not found!",
+                "label": "404 Sub Title"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "default": "Go back home",
+                "label": "Button Text"
+            },
+            {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+            }
+        ]
+    }
+{% endschema %}

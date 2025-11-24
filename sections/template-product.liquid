@@ -1,0 +1,173 @@
+{% comment %} {{ 'swiper.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper.min.js' | asset_url }}" defer></script> {% endcomment %}
+
+<section class="product-section">
+    <div class="container mx-auto py-10 px-4 lg:px-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div class="flex gap-4">
+                <!-- RIGHT SIDE — THUMBNAILS (VERTICAL SLIDER) -->
+                <div class="flex flex-col items-center">
+                    <div class="product-thumb-slider w-28">
+
+                    {% for media in product.media %}
+                        <div class="p-1">
+                        {{ media | image_url: width: 200 | image_tag:
+                            class: "w-full h-32 object-cover rounded cursor-pointer border"
+                        }}
+                        </div>
+                    {% endfor %}
+
+                    </div>
+
+                    <!-- Arrows -->
+                    <div class="flex gap-2 mt-2">
+                        <button class="thumb-up border px-3 py-1 rounded">▲</button>
+                        <button class="thumb-down border px-3 py-1 rounded">▼</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <div class="product-main-slider w-full max-w-[520px]">
+                    {% for media in product.media %}
+                        <div>
+                        {{ media | image_url: width: 600 | image_tag:
+                            class: "w-full object-cover rounded"
+                        }}
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE — PRODUCT INFO -->
+            <div>
+                <!-- Breadcrumb -->
+                <p class="text-gray-500 text-sm mb-2">
+                    <a href="{{ routes.root_url }}" class="hover:underline">Home</a>
+                    
+                    {% if product.collections.size > 0 %}
+                        {% assign first_collection = product.collections.first %}
+                        / <a href="{{ first_collection.url }}" class="hover:underline">{{ first_collection.title }}</a>
+                    {% endif %}
+                    
+                    / <span class="text-black">{{ product.title }}</span>
+                </p>
+
+                <!-- Title -->
+                <h1 class="text-2xl font-semibold mb-2">{{product.title}}</h1>
+
+                <!-- SKU -->
+                <p class="text-sm text-gray-500 mb-4">SKU: {{ product.selected_or_first_available_variant.sku }}</p>
+
+
+                <!-- Colors -->
+                <div class="mb-4">
+                    <h3 class="font-semibold mb-2">Colors</h3>
+
+                    <div class="flex gap-3">
+                        {% assign option_index = 0 %}
+                        {% for option in product.options_with_values %}
+                            {% if option.name == 'Color' %}
+                                {% for value in option.values %}
+
+                                    {% assign variant = product.variants | where: 'option1', value | first %}
+                                    {% if variant and variant.featured_media %}
+                                        {{ variant.featured_media | image_url: width: 100 | image_tag:
+                                            class: "color-swatch w-14 h-14 border rounded cursor-pointer"
+                                        }}
+                                    {% endif %}
+
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <p id="color-label" class="text-gray-600 text-sm mt-2">
+                        {{ product.selected_or_first_available_variant.option1 }}
+                    </p>
+                </div>
+
+                <!-- Price -->
+                <p class="text-xl font-semibold my-4">{{ product.price | money_with_currency }}</p>
+
+                <!-- Quantity -->
+                <div class="flex items-center gap-4 mb-6">
+                    <button class="px-3 py-1 border">-</button>
+                    <span class="px-4">1</span>
+                    <button class="px-3 py-1 border">+</button>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex items-center gap-4">
+                    <button class="bg-black text-white px-6 py-3">
+                        ADD TO CART
+                    </button>
+
+                    <button class="flex items-center gap-2 text-gray-700">
+                        <span>♡</span> Add to wishlist
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="mt-14 border-t pt-8">
+            <div class="flex gap-10 border-b pb-3 mb-6">
+                <button class="font-semibold border-b-2 border-black pb-2">DETAILS</button>
+                <button class="text-gray-600">REVIEW</button>
+                <button class="text-gray-600">SHIPPING</button>
+                <button class="text-gray-600">WASH INSTRUCTIONS</button>
+            </div>
+
+            <!-- Tab Content -->
+            <p class="text-gray-600 leading-relaxed text-sm">
+                {{ product.description }}
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  /* MAIN SLIDER */
+  $('.product-main-slider').slick({
+    slidesToShow: 1,
+    arrows: false,
+    fade: true,
+    asNavFor: '.product-thumb-slider'
+  });
+
+  /* VERTICAL THUMBNAIL SLIDER */
+  $('.product-thumb-slider').slick({
+    slidesToShow: 3,
+    vertical: true,
+    arrows: false,
+    focusOnSelect: true,
+    asNavFor: '.product-main-slider'
+  });
+
+  /* ARROWS */
+  document.querySelector(".thumb-up")?.addEventListener("click", () => {
+    $('.product-thumb-slider').slick("slickPrev");
+  });
+
+  document.querySelector(".thumb-down")?.addEventListener("click", () => {
+    $('.product-thumb-slider').slick("slickNext");
+  });
+
+  /* Quantity Control */
+  document.querySelector(".qty-minus").onclick = () => {
+    let qty = document.querySelector("input[name='quantity']");
+    if (qty.value > 1) qty.value--;
+  };
+  document.querySelector(".qty-plus").onclick = () => {
+    let qty = document.querySelector("input[name='quantity']");
+    qty.value++;
+  };
+
+});
+
+</script>

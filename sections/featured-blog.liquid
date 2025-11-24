@@ -1,0 +1,54 @@
+{% assign blog = section.settings.featured_blog %}
+
+<div class="relative bg-white lg:container lg:mx-auto">
+  <div class="mx-auto pt-14 pb-9">
+    <div class="text-center mb-5">
+      <h2 class="font-bold text-4xl mb-4">{{ section.settings.section_title }}</h2>
+      <p class="text-md">{{ section.settings.section_description }}</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center gap-8">
+      {% for article in blog.articles %}
+        <div class="card border-2 border-transparent rounded-lg transition duration-300 bg-white shadow-md">
+            <img src="{{ article.image | img_url: 'medium' }}" alt="{{ article.title }}" class="w-full rounded-t-md">
+            <div class="p-3">
+              <div class="text-slate-600 text-sm font-normal pt-2">{{ article.published_at | time_tag: format: 'date' }}</div>
+              <h2 class="text-3xl pt-2.5 mb-4"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+              <p class="text-slate-700 font-normal line-clamp-2 leading-6 pt-1 mb-5">{{ article.excerpt }}</p>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+    
+  {% schema %}
+    {
+      "name": "Featured Blog",
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_title",
+          "label": "Section title",
+          "default": "Blog list"
+        },
+        {
+          "type": "textarea",
+          "id": "section_description",
+          "label": "Section description",
+          "default": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
+        },
+        {
+            "type": "blog",
+            "id": "featured_blog",
+            "label": "Featured Blog"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Featured Blog",
+          "category": "Blog"
+        }
+      ]
+    }
+  {% endschema %}
+    
