@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Skeleton",
+    "theme_name": "Edo Glow",
     "theme_version": "0.1.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
-    "theme_support_url": "https://support.shopify.com/"
+    "theme_author": "Habib Ullah",
+    "theme_documentation_url": "https://github.com/habibullah285/shopify-ecoglow",
+    "theme_support_url": "https://github.com/habibullah285/shopify-ecoglow"
   },
   {
     "name": "t:general.typography",
