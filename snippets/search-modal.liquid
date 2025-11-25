@@ -1,0 +1,27 @@
+<div id="search-modal" class="hidden flex items-center fixed right-0 bg-white">
+
+    <!-- Close button -->
+    <button 
+      type="button" 
+      class="absolute right-3 text-gray-500 hover:text-gray-900 text-2xl font-bold transition-colors"
+      data-modal-close="search-modal"
+    >
+      &times;
+    </button>
+
+    <!-- Search Form -->
+    <form action="/search" method="get" class="flex items-center border-2 border-gray-900 mr-10"> 
+        <input 
+          type="search" 
+          name="q" 
+          placeholder="Search products..." 
+          class="w-full bg-transparent text-gray-900 px-4 py-3 focus:outline-none placeholder-gray-400"
+          required
+        >
+        <button type="submit" class="px-2 py-3 bg-gray-800 hover:bg-gray-900 text-white transition-colors cursor-pointer">
+          {% render 'icon-search' %}
+        </button>
+    </form>
+
+    
+</div>
