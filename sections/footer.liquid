@@ -1,56 +1,161 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
-  </div>
+{% liquid
+  assign footer_logo = section.settings.footer_logo
+%}
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+<footer class="site-footer bg-gray-900">
+  <div class="max-w-screen-xl px-4 pt-16 pb-6 mx-auto sm:px-6 lg:px-8 lg:pt-24">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+      <div class="md:col-span-1">
+        <div class="flex justify-start">
+          {% if footer_logo %}
+            <a href="{{ routes.root_url }}">
+              {{ footer_logo | image_url: width: 150 | image_tag: class: "footer-logo h-auto w-auto", alt: shop.name }}
+            </a>
+          {% else %}
+            <a href="{{ routes.root_url }}">
+              <h1 class="text-xl font-bold text-white">{{ shop.name }}</h1>
+            </a>
+          {% endif %}
+        </div>
 
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+        <!-- Description -->
+        <p class="max-w-md mt-6 leading-relaxed text-gray-400">
+          {{ section.settings.footer_text }}
+        </p>
+
+        <!-- Social Media under Logo + Description (left aligned) -->
+        {% if section.settings.footer_social_media %}
+          <div class="mt-6 flex gap-4">
+            {% render 'social-icons' %}
+          </div>
+        {% endif %}
+
+        <!-- Payment Icons -->
+        {% if section.settings.show_payment_icons %}
+          <div class="footer-payment flex items-center gap-3 mt-6 opacity-80">
+            {% for type in shop.enabled_payment_types %}
+              {{ type | payment_type_svg_tag }}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      </div>
+
+      <!-- RIGHT: Menus (2 columns) -->
+      <div class="md:grid-cols-3 md:col-span-2 grid grid-cols-3 gap-10">
+
+        <!-- Menu 1: Contact -->
+        <div class="md:col-span-1">
+          <p class="text-lg font-medium text-white">{{ section.settings.contact_title }}</p>
+          <ul class="mt-4 space-y-3 text-sm">
+            {% for link in section.settings.contact_menu.links %}
+              <li><a class="text-white hover:text-white/70" href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Menu 2: About -->
+        <div class="md:col-span-1">
+          <p class="text-lg font-medium text-white">{{ section.settings.about_title }}</p>
+          <ul class="mt-4 space-y-3 text-sm">
+            {% for link in section.settings.aboutus_menu.links %}
+              <li><a class="text-white hover:text-white/70" href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Menu 3: Services -->
+        <div class="md:col-span-1">
+          <p class="text-lg font-medium text-white">{{ section.settings.services_title }}</p>
+          <ul class="mt-4 space-y-3 text-sm">
+            {% for link in section.settings.services_menu.links %}
+              <li><a class="text-white hover:text-white/70" href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="pt-6 mt-12 border-t border-gray-800">
+      <p class="text-sm text-gray-500 text-center">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+      </p>
+    </div>
+
   </div>
 </footer>
 
-{% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  footer .footer__links,
-  footer .footer__payment {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.footer",
+  "name": "Footer",
   "settings": [
     {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Footer Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_text",
+      "label": "Footer Description",
+      "default": "Browse our latest products and get exciting deals every day."
+    },
+
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Title",
+      "default": "Contact"
+    },
+    {
       "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "id": "contact_menu",
+      "label": "Contact Menu"
+    },
+
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "About Us Title",
+      "default": "About Us"
+    },
+    {
+      "type": "link_list",
+      "id": "aboutus_menu",
+      "label": "About Us Menu"
+    },
+
+    {
+      "type": "text",
+      "id": "services_title",
+      "label": "Services Title",
+      "default": "Our Services"
+    },
+    {
+      "type": "link_list",
+      "id": "services_menu",
+      "label": "Services Menu"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "footer_social_media",
+      "label": "Show Social Media Icons",
+      "default": true
     },
     {
       "type": "checkbox",
       "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
+      "label": "Show Payment Icons",
       "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
     }
   ]
 }
