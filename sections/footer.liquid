@@ -1,91 +1,57 @@
-{% liquid
-    assign footer_logo = section.settings.footer_logo 
-%}
-<footer class="bg-gray-900">
-    <div class="max-w-screen-xl px-4 pt-16 pb-6 mx-auto sm:px-6 lg:px-8 lg:pt-24">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-        <div>
-          <div class="flex justify-center text-teal-300 sm:justify-start">
-            {% if footer_logo != null %}
-                <a href="{{ routes.root_url }}">
-                    {{ footer_logo | image_url: width: 100 | image_tag:
-                        class: 'footer-logo',
-                        alt: shop.name
-                      }}
-                </a>
-            {% else %}
-                <a href="{{ routes.root_url }}"><h1 class="text-xl font-bold truncate">{{ shop.name }}</h1></a>
-            {% endif %}
-          </div>
-  
-          <p class="max-w-md mx-auto mt-6 leading-relaxed text-center text-gray-400 sm:max-w-xs sm:mx-0 sm:text-left">
-            {{ section.settings.footer_text }}
-          </p>
-  
-        </div>
-        <div class="text-center sm:text-left">
-            <p class="text-lg font-medium text-white">About Us</p>
+<footer>
+  <div class="footer__copyright">
+    &copy;
+    {{ 'now' | date: '%Y' }}
+    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
+  </div>
 
-            <nav class="mt-8">
-                <ul class="space-y-4 text-sm">
-                {% for link in section.settings.aboutus_menu.links %}
-                    <li><a class="text-white transition hover:text-white/75" href="{{ link.url }}">{{ link.title }}</a></li>
-                {% endfor %}
-                </ul>
-            </nav>
-        </div>
+  <div class="footer__links">
+    {% for link in section.settings.menu.links %}
+      {{ link.title | link_to: link.url }}
+    {% endfor %}
+  </div>
 
-        <div class="text-center sm:text-left">
-            <p class="text-lg font-medium text-white">Our Services</p>
+  <div class="footer__payment">
+    {% if section.settings.show_payment_icons %}
+      {% for type in shop.enabled_payment_types %}
+        {{ type | payment_type_svg_tag }}
+      {% endfor %}
+    {% endif %}
+  </div>
+</footer>
 
-            <nav class="mt-8">
-                <ul class="space-y-4 text-sm">
-                {% for link in section.settings.services_menu.links %}
-                    <li><a class="text-white transition hover:text-white/75" href="{{ link.url }}">{{ link.title }}</a></li>
-                {% endfor %}
-                </ul>
-            </nav>
-        </div>
-      </div>
-  
-      <div class="pt-6 mt-12 border-t border-gray-800">
-        <div class="text-center">
-          <p class="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0">
-            &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+{% stylesheet %}
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  footer a {
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+  footer .footer__links,
+  footer .footer__payment {
+    display: flex;
+    gap: 1rem;
+  }
+{% endstylesheet %}
 
-  {% schema %} 
+{% schema %}
+{
+  "name": "t:general.footer",
+  "settings": [
     {
-        "name": "Footer",
-        "settings": [
-            {
-                "type": "image_picker",
-                "id": "footer_logo",
-                "label": "Select Logo",
-                "info": "Recommended size 200X200px"
-            },
-            {
-                "type": "textarea",
-                "id": "footer_text",
-                "default": "Browse our latest products Browse our latest products.",
-                "label": "Abous US"
-            },
-            {
-                "type": "link_list",
-                "id": "aboutus_menu",
-                "label": "About Us",
-                "default": "footer"
-            },
-            {
-                "type": "link_list",
-                "id": "services_menu",
-                "label": "Our Services",
-                "default": "footer"
-            },
-        ]
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:labels.menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:labels.show_payment_icons",
+      "default": true
     }
-{% endschema %} 
+  ]
+}
+{% endschema %}

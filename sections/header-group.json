@@ -8,13 +8,15 @@
  * ------------------------------------------------------------
  */
 {
+  "type": "header",
+  "name": "t:general.header",
   "sections": {
-    "main": {
-      "type": "hello-world",
+    "header": {
+      "type": "header",
       "settings": {}
     }
   },
   "order": [
-    "main"
-  ]
+    "header"
+  ],
 }
