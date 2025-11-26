@@ -1,0 +1,94 @@
+{% assign collection = section.settings.featured_collection %}
+{% comment %} {% assign product_limit = section.settings.product_limit %} {% endcomment %}
+<div class="relative bg-white lg:container lg:mx-auto">
+  <div class="max-w-[1140px] mx-auto pt-14 pb-9">
+    <div class="text-center mb-5">
+      <h2 class="font-bold text-4xl mb-4">{{ section.settings.section_title }}</h2>
+      <p class="text-md">{{ section.settings.section_description }}</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-{{ section.settings.mobile_columns }} md:grid-cols-{{ section.settings.tablet_columns }} lg:grid-cols-{{ section.settings.desktop_columns }} gap-8 sm:gap-10 lg:gap-14">
+      {% for product in collection.products limit:6 %}
+      <div class="w-90 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        <div class="w-100">
+          {{ product.featured_image | image_url: width: 400 | image_tag:
+             class: "h-80 w-90 object-cover rounded-t-xl"
+          }}
+          <div class="px-4 py-3 w-90">
+            <span class="text-gray-400 mr-3 uppercase text-xs">{{ product.vendor }}</span>
+            <p class="text-lg font-bold text-black truncate block capitalize"><a href="{{ product.url }}">{{  product.title }}</a></p>
+            <div class="flex items-center">
+              <p class="text-lg font-semibold text-black cursor-auto my-3">{{ product.price | money }}</p>
+              {% if product.compare_at_price > product.price %}
+                <del>
+                  <p class="text-sm text-gray-600 cursor-auto ml-2">{{ product.compare_at_price | money }}</p>
+                </del>
+              {% endif %}
+              <div class="ml-auto">
+                {% render 'icon-shoping-bag' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+  
+</div>
+  
+{% schema %}
+  {
+    "name": "Featured collection",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section title",
+        "default": "Collection list"
+      },
+      {
+        "type": "textarea",
+        "id": "section_description",
+        "label": "Section description",
+        "default": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
+      },
+      {
+        "type": "collection",
+        "id": "featured_collection",
+        "label": "Featured Collection",
+      },
+      {
+        "type": "number",
+        "id": "desktop_columns",
+        "label": "Desktop Columns",
+        "default": 3,
+      },
+      {
+        "type": "number",
+        "id": "tablet_columns",
+        "label": "Tablet Columns",
+        "default": 2,
+      },
+      {
+        "type": "number",
+        "id": "mobile_columns",
+        "label": "Mobile Columns",
+        "default": 1,
+      },
+      {
+        "type": "number",
+        "id": "product_limit",
+        "label": "Total Products to Show",
+        "default": 6,
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+  

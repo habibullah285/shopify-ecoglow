@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     {{ content_for_header }}
     {{ 'output.css' | asset_url | stylesheet_tag }}
+    {% comment %} {{ 'swiper.min.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.js' | asset_url | script_tag }} {% endcomment %}
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   </head>
   <body>
     {% section 'header' %}

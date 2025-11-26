@@ -1,0 +1,54 @@
+<div class="bg-cover bg-center h-screen" style="background-image: url('{{ section.settings.banner_image | img_url: 'large' }}');" aria-label="Background image">
+    <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
+      <div class="text-center text-white">
+        <h1 class="text-5xl font-bold">{{ section.settings.title }}</h1>
+        <p class="mt-4 text-xl">{{ section.settings.sub_title }}</p>
+        {% if section.settings.button_url == blank %}
+          {% assign shop_url = shop.secure_url %}
+        {% else %}
+            {% assign shop_url = section.settings.button_url %}
+        {% endif %}
+        <a href="{{ shop_url }}" class="mt-6 inline-block bg-red-600 hover:bg-red-800 text-white py-3 px-6 rounded-full">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    </div>
+</div>
+
+  {% schema %}
+    {
+        "name": "Image Banner",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "default": "Browse our latest products",
+                "label": "Heading Title"
+            },
+            {
+                "type": "text",
+                "id": "sub_title",
+                "default": "Browse our latest products Browse our latest products.",
+                "label": "Sub Title"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "default": "Shop all",
+                "label": "Button Text"
+            },
+            {
+              "type": "url",
+              "id": "button_url",
+              "label": "Button URL"
+            },
+            {
+              "type": "image_picker",
+              "id": "banner_image",
+              "label": "Select Image",
+              "info": "Recommended size 1200X800px"
+            }
+        ]
+    }
+{% endschema %}

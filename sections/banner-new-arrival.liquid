@@ -1,0 +1,57 @@
+<div class="max-w-6xl mx-auto bg-gray-50 flex flex-col md:flex-row items-center p-8 md:p-16 rounded-lg shadow-lg">
+  <!-- Text Content -->
+  <div class="md:w-1/2 mb-8 md:mb-0">
+    <h1 class="text-4xl font-bold mb-4">{{ section.settings.title }}</h1>
+    <p class="text-gray-700 mb-6">{{ section.settings.description }}</p>
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+
+  <!-- Image -->
+  <div class="md:w-1/2 flex justify-center">
+    {% if section.settings.banner_image != blank %}
+      <img src="{{ section.settings.banner_image | img_url: 'large' }}" alt="{{ section.settings.title }}" class="max-w-sm md:max-w-md rounded">
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner: New Arrival",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "New Arrival"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SHOP NOW"
+    }
+  ]
+}
+{% endschema %}

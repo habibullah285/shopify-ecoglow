@@ -9,12 +9,34 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "image-banner": {
+      "type": "image-banner",
+      "settings": {
+        "title": "Browse our latest products",
+        "sub_title": "Browse our latest products Browse our latest products.",
+        "button_text": "Shop all",
+        "button_url": "",
+        "bg_image": "shopify://shop_images/e3c81359740db20c970aef3481f05274.png"
+      }
+    },
+    "banner-new-arrival": {
+      "type": "banner-new-arrival",
+      "settings": {
+        "title": "Browse our latest products",
+        "sub_title": "Browse our latest products Browse our latest products.",
+        "button_text": "Shop all",
+        "button_url": "",
+        "banner_image": "shopify://shop_images/e3c81359740db20c970aef3481f05274.png"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "section_title": "Featured Collection",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
+        "featured_collection": ""
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["image-banner", "banner-new-arrival", "featured_collection"]
 }
