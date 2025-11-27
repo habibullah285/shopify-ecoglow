@@ -15,18 +15,25 @@
         "title": "Browse our latest products",
         "sub_title": "Browse our latest products Browse our latest products.",
         "button_text": "Shop all",
-        "button_url": "",
-        "bg_image": "shopify://shop_images/e3c81359740db20c970aef3481f05274.png"
+        "button_url": ""
+      }
+    },
+    "collections_3qBVfq": {
+      "type": "collections",
+      "name": "t:general.collections_grid",
+      "settings": {
+        "grid_item_width": "collections--full",
+        "grid_gap": 10
       }
     },
     "banner-new-arrival": {
       "type": "banner-new-arrival",
       "settings": {
+        "banner_image": "shopify://shop_images/woman-puts-hand-in-pocket.jpg",
         "title": "Browse our latest products",
-        "sub_title": "Browse our latest products Browse our latest products.",
-        "button_text": "Shop all",
-        "button_url": "",
-        "banner_image": "shopify://shop_images/e3c81359740db20c970aef3481f05274.png"
+        "description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.",
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop all"
       }
     },
     "featured_collection": {
@@ -34,9 +41,18 @@
       "settings": {
         "section_title": "Featured Collection",
         "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
-        "featured_collection": ""
+        "featured_collection": "featured",
+        "desktop_columns": 3,
+        "tablet_columns": 2,
+        "mobile_columns": 1,
+        "product_limit": 6
       }
     }
   },
-  "order": ["image-banner", "banner-new-arrival", "featured_collection"]
+  "order": [
+    "image-banner",
+    "collections_3qBVfq",
+    "banner-new-arrival",
+    "featured_collection"
+  ]
 }
