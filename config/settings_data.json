@@ -9,6 +9,10 @@
  */
 {
   "current": {
+    "facebook_url": "#",
+    "twitter_url": "#",
+    "instagram_url": "#",
+    "linkedin_url": "#",
     "sections": {
       "header": {
         "type": "header",
