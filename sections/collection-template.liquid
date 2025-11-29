@@ -1,0 +1,66 @@
+<div class="w-full  my-20">
+    <div class="container mx-auto px-4">
+         <!-- Header -->
+        <div class="header mb-10 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+                {{ collection.title | escape }}
+            </h2>
+            {% if collection.description != blank %}
+              <p class="mt-3 text-gray-600 text-sm md:text-base">
+                  {{ collection.description }}
+              </p>
+            {% endif %}
+            <div class="filter-heading mt-3">
+              <p>Total Product: {{ collection.all_products_count }}</p>
+            </div>
+            
+        </div>
+        <!-- Product Grid -->
+        <div class="w-full main-collections">
+            <div class="grid grid-cols-12 gap-10">
+              {% paginate collection.products by 20 %}
+                  {% for product in collection.products %}
+                    <div class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+                      {%- render 'product-card', product:product -%}
+                    </div>
+                  {% endfor %}
+                {{ paginate | default_pagination }}
+              {% endpaginate %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} <div class="collection-products">
+  {% paginate collection.products by 20 %}
+    {% for product in collection.products %}
+      <div class="collection-product">
+        {% if product.featured_image %}
+          {% render 'image',
+            class: 'collection-product__image',
+            image: product.featured_image,
+            url: product.url,
+            width: 400,
+            height: 400,
+            crop: 'center'
+          %}
+        {% endif %}
+        <div class="collection-product__content">
+          <p>{{ product.title | escape | link_to: product.url }}</p>
+          <p>{{ product.price | money }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+    {{ paginate | default_pagination }}
+  {% endpaginate %}
+</div> {% endcomment %}
+
+
+{% schema %}
+{
+  "name": "t:general.collection",
+  "settings": []
+}
+{% endschema %}

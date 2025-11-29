@@ -13,7 +13,10 @@
   <!-- Image -->
   <div class="md:w-1/2 flex justify-center">
     {% if section.settings.banner_image != blank %}
-      <img src="{{ section.settings.banner_image | img_url: 'large' }}" alt="{{ section.settings.title }}" class="max-w-sm md:max-w-md rounded">
+      {{ section.settings.banner_image 
+          | image_url: 'large' 
+          | image_tag: class: 'max-w-sm md:max-w-md rounded', alt: section.settings.title 
+      }}
     {% endif %}
   </div>
 </div>

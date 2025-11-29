@@ -8,29 +8,8 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-{{ section.settings.mobile_columns }} md:grid-cols-{{ section.settings.tablet_columns }} lg:grid-cols-{{ section.settings.desktop_columns }} gap-8 sm:gap-10 lg:gap-14">
       {% for product in collection.products limit:6 %}
-      <div class="w-90 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-        <div class="w-100">
-          {{ product.featured_image | image_url: width: 400 | image_tag:
-             class: "h-80 w-90 object-cover rounded-t-xl"
-          }}
-          <div class="px-4 py-3 w-90">
-            <span class="text-gray-400 mr-3 uppercase text-xs">{{ product.vendor }}</span>
-            <p class="text-lg font-bold text-black truncate block capitalize"><a href="{{ product.url }}">{{  product.title }}</a></p>
-            <div class="flex items-center">
-              <p class="text-lg font-semibold text-black cursor-auto my-3">{{ product.price | money }}</p>
-              {% if product.compare_at_price > product.price %}
-                <del>
-                  <p class="text-sm text-gray-600 cursor-auto ml-2">{{ product.compare_at_price | money }}</p>
-                </del>
-              {% endif %}
-              <div class="ml-auto">
-                {% render 'icon-shoping-bag' %}
-              </div>
-            </div>
-          </div>
-        </div>
+                {%- render 'product-card', product:product -%}
       
-      </div>
     {% endfor %}
     </div>
   </div>

@@ -1,0 +1,134 @@
+{% assign pos = section.settings.position %}
+<div class="image-with-text-section container mx-auto px-4 py-12">
+  <div class="flex flex-col md:flex-row items-center gap-10 {% if pos == 'right' %}md:flex-row-reverse{% endif %}">
+
+    <!-- Image Area -->
+    <div class="flex-1 w-full">
+      <div class="rounded-xl overflow-hidden shadow-lg">
+        {% if section.settings.image %}
+          {{ section.settings.image | image_url: width: 800 | image_tag:
+              class: 'w-full h-full object-cover',
+              alt: 'Banner Image'
+          }}
+        {% else %}
+          <div class="bg-gray-100 h-64 flex items-center justify-center">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Text Area -->
+    <div class="flex-1 text-center md:text-left">
+      {% for block in section.blocks %}
+        {% case block.type %}
+
+          {% when 'title' %}
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+              {{ block.settings.heading }}
+            </h2>
+
+          {% when 'description' %}
+            <div class="text-gray-600 mb-6 leading-relaxed">
+              {{ block.settings.sub_heading }}
+            </div>
+
+          {% when 'action' %}
+            <a 
+              href="{{ block.settings.btn_url }}" 
+              class="inline-block bg-black text-white py-3 px-6 rounded-lg font-medium
+                     hover:bg-gray-800 transition-all duration-200">
+              {{ block.settings.btn_label }}
+            </a>
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Image with text",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+
+        },
+        {
+            "type": "header",
+            "content": "Setting"
+        },
+        {
+            "type": "select",
+            "id": "position",
+            "label": "Position",
+            "default": "left",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ]
+        }
+    ],
+    "blocks": [
+        {
+            "type": "title",
+            "name": "Main Title",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Title",
+                    "default": "Hello World"
+
+                }
+            ]
+        },
+        {
+            "type": "description",
+            "name": "Description",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "sub_heading",
+                    "label": "Description"
+                }
+            ]
+        },
+        {
+            "type": "action",
+            "name": "Action",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "btn_label",
+                    "label": "Button Text",
+                    "default": "See More"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_url",
+                    "label": "Button Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Image with text",
+            "category": "Images"
+        }
+    ]
+}
+{% endschema %}

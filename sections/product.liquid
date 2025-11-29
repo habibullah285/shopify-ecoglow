@@ -147,11 +147,67 @@
 
 {% schema %}
 {
-  "name": "t:general.product",
+  "name": "Product Template",
   "settings": [],
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  }
+  "blocks": [
+    {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+    },
+    {
+        "type": "vendor",
+        "name": "vendor",
+        "limit": 1
+    },
+    {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
+    },
+    {
+        "type": "description",
+        "name": "Description",
+        "limit": 1
+    },
+    {
+        "type": "quntity",
+        "name": "Quntity",
+        "limit": 1
+    },
+    {
+        "type": "variants",
+        "name": "Variants",
+        "limit": 1
+    },
+    {
+        "type": "add_to_cart_btn",
+        "name": "Add to Cart Button",
+        "limit": 1
+    }
+  ],
+  "default": {
+    "blocks": [
+        {
+            "type": "title"
+        },
+        {
+            "type": "price"
+        },
+        {
+            "type": "description"
+        },
+        {
+            "type": "variants"
+        },
+        {
+            "type": "quntity"
+        },
+        {
+            "type": "add_to_cart_btn"
+        }
+    ]
+   }
 }
 {% endschema %}
 

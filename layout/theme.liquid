@@ -12,7 +12,6 @@
     {% comment %} {{ 'swiper.min.css' | asset_url | stylesheet_tag }}
     {{ 'swiper-bundle.min.js' | asset_url | script_tag }} {% endcomment %}
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
-     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   </head>
   <body>
     {% section 'header' %}
@@ -20,7 +19,8 @@
       {{ content_for_layout }}
     </main>
     {% section 'footer' %}
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     {%- comment -%} Custom JS file (deferred) {%- endcomment -%}
     <script src="{{ 'output.js' | asset_url }}" defer></script>
   </body>
