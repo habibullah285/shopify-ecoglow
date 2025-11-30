@@ -13,9 +13,11 @@
   <!-- Image -->
   <div class="md:w-1/2 flex justify-center">
     {% if section.settings.banner_image != blank %}
-      {{ section.settings.banner_image 
-          | image_url: 'large' 
-          | image_tag: class: 'max-w-sm md:max-w-md rounded', alt: section.settings.title 
+      {{ section.settings.banner_image
+          | image_url: width: 900
+          | image_tag: 
+            class: 'max-w-sm md:max-w-md rounded', 
+            alt: section.settings.title 
       }}
     {% endif %}
   </div>
