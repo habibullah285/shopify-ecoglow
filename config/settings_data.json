@@ -26,7 +26,7 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "footer_logo": "shopify://shop_images/kids-beanie.jpg",
+          "footer_logo": "shopify://shop_images/DokanPartFooter.png",
           "footer_text": "Browse our latest products and get exciting deals every day.",
           "footer_social_media": true,
           "show_payment_icons": true
