@@ -1,37 +1,199 @@
-{% comment %}
-  This section is used in the cart template to render /cart page with an
-  overview of the items in customer's cart.
+<div class="w-full py-10">
+  <div class="container mx-auto px-4">
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/cart
-{% endcomment %}
+    <!-- Page Title -->
+    <div class="mb-10">
+      <h2 class="text-3xl md:text-4xl font-bold">{{ 'cart.title' | t }}</h2>
+    </div>
 
-<h1>{{ 'cart.title' | t }}</h1>
+    <div id="cartContainer">
 
-<form action="{{ routes.cart_url }}" method="post">
-  <table>
-    {% for item in cart.items %}
-      <tr>
-        <td>
-          {% render 'image', image: item.image, url: item.url %}
-        </td>
-        <td>
-          <p>{{ item.product.title }}</p>
-          {{ 'cart.remove' | t | link_to: item.url_to_remove }}
-        </td>
-        <td>
-          <input type="text" name="updates[]" value="{{ item.quantity }}">
-          <input type="submit" value="{{ 'cart.update' | t }}">
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+      <!-- Cart Header -->
+      <div class="border-b pb-4 mb-6 grid grid-cols-12 text-sm font-semibold text-gray-600 uppercase">
+        <div class="col-span-6 md:col-span-6">Product</div>
+        <div class="col-span-2 md:col-span-2">Price</div>
+        <div class="col-span-2 md:col-span-2">Qty</div>
+        <div class="col-span-2 md:col-span-2 text-right">Total</div>
+      </div>
 
-  <input type="submit" name="checkout" value="{{ 'cart.checkout' | t }}">
-</form>
+      <!-- Cart Items -->
+      {% for item in cart.items %}
+      <div class="grid grid-cols-12 gap-6 py-6 border-b items-center" data-line="{{ forloop.index }}">
 
-{% schema %}
-{
-  "name": "t:general.cart",
-  "settings": []
+        <!-- Product Image + Info -->
+        <div class="col-span-6 md:col-span-6 flex items-start gap-4">
+          
+            {{ item.image 
+                | image_url: width: 300 
+                | image_tag: class: 'w-20 h-20 rounded border object-cover'
+            }}
+
+          <div>
+            <p class="font-medium text-gray-800">{{ item.product.title }}</p>
+
+            {% if item.variant.title != 'Default Title' %}
+              <p class="text-sm text-gray-500">{{ item.variant.title }}</p>
+            {% endif %}
+
+            <button 
+              class="remove-item text-red-500 text-sm mt-1 hover:underline" 
+              data-line="{{ forloop.index }}">
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Unit Price -->
+        <div class="col-span-2 md:col-span-2 item-price">
+          {{ item.final_line_price | divided_by: item.quantity | money }}
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="col-span-2 md:col-span-2">
+          <div class="flex items-center border rounded w-28">
+
+            <button
+              class="qty-btn w-8 h-8 flex items-center justify-center text-xl"
+              data-line="{{ forloop.index }}"
+              data-action="minus">
+              −
+            </button>
+
+            <input 
+              type="number"
+              class="qty-input w-12 text-center border-x"
+              value="{{ item.quantity }}"
+              min="1"
+              data-line="{{ forloop.index }}">
+
+            <button
+              class="qty-btn w-8 h-8 flex items-center justify-center text-xl"
+              data-line="{{ forloop.index }}"
+              data-action="plus">
+              +
+            </button>
+          </div>
+        </div>
+
+        <!-- Total Price -->
+        <div class="col-span-2 md:col-span-2 text-right font-medium item-total">
+          {{ item.final_line_price | money }}
+        </div>
+
+      </div>
+      {% endfor %}
+
+      <!-- Cart Summary -->
+      <div class="mt-10 ml-auto w-full md:w-1/3">
+
+        <div class="flex justify-between text-lg font-medium mb-3">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">{{ cart.total_price | money }}</span>
+        </div>
+
+        <p class="text-sm text-gray-500 mb-6">
+          Taxes and shipping calculated at checkout.
+        </p>
+
+        <a href="/checkout" 
+           class="w-full py-3 mb-3 block text-center bg-gray-800 text-white rounded hover:bg-black">
+          Checkout
+        </a>
+
+        <div>
+          {{ content_for_additional_checkout_buttons }}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================
+     AJAX CART SCRIPT
+===================== -->
+<script>
+
+function updateCart(line, quantity) {
+  return fetch('/cart/change.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ line: line, quantity: quantity })
+  })
+  .then(res => res.json());
 }
-{% endschema %}
+
+function refreshUI(cart) {
+
+  cart.items.forEach((item, index) => {
+
+    let row = document.querySelector(`[data-line="${index+1}"]`);
+    if (!row) return;
+
+    // Update quantity input
+    row.querySelector('.qty-input').value = item.quantity;
+
+    // Update item total
+    row.querySelector('.item-total').innerHTML =
+      Shopify.formatMoney(item.final_line_price);
+
+    // Update item unit price
+    row.querySelector('.item-price').innerHTML =
+      Shopify.formatMoney(item.final_line_price / item.quantity);
+  });
+
+  // Update subtotal
+  document.getElementById('cartSubtotal').innerHTML =
+    Shopify.formatMoney(cart.total_price);
+}
+
+
+/* Quantity Buttons */
+document.querySelectorAll('.qty-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    let line = this.dataset.line;
+    let input = document.querySelector(`.qty-input[data-line="${line}"]`);
+    let qty = parseInt(input.value);
+
+    if (this.dataset.action === "plus") qty++;
+    if (this.dataset.action === "minus" && qty > 1) qty--;
+
+    input.value = qty;
+
+    updateCart(line, qty).then(cart => {
+      refreshUI(cart);
+    });
+  });
+});
+
+
+/* Manual Input Change */
+document.querySelectorAll('.qty-input').forEach(input => {
+  input.addEventListener('change', function() {
+    let line = this.dataset.line;
+    let qty = parseInt(this.value);
+
+    if (qty < 1) qty = 1;
+
+    updateCart(line, qty).then(cart => {
+      refreshUI(cart);
+    });
+  });
+});
+
+
+/* Remove Button */
+document.querySelectorAll('.remove-item').forEach(btn => {
+  btn.addEventListener('click', function() {
+    let line = this.dataset.line;
+
+    updateCart(line, 0).then(cart => {
+      document.querySelector(`[data-line="${line}"]`).remove();
+      refreshUI(cart);
+    });
+  });
+});
+
+</script>

@@ -148,7 +148,7 @@
 
                 
 
-                <!-- SKU -->
+                {% comment %} <!-- SKU -->
                 <p class="text-sm text-gray-500 mt-10 mb-4">SKU: {{ product.selected_or_first_available_variant.sku }}</p>
 
                 <!-- Title -->
@@ -225,7 +225,7 @@
                     <input type="submit" value="Add to cart" class="bg-black text-white px-6 py-3">
 
                   {% endform %}
-                </div>
+                </div> {% endcomment %}
 
             </div>
         </div>

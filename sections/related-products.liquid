@@ -1,0 +1,71 @@
+<div class="product-recommendations w-full my-20" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent=related">
+  <div class="container mx-auto px-4">
+
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+
+          <h2 class="text-2xl font-semibold mb-6">{{ section.settings.section_title }}</h2>
+
+      <div class="w-full main-collections">
+        <div class="grid grid-cols-12 gap-10">
+
+          {%- for product in recommendations.products -%}
+            <div class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+              {%- render 'product-card', product: product -%}
+            </div>
+          {%- endfor -%}
+
+        </div>
+      </div>
+
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% javascript %}
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+
+  if (productRecommendationsSection) {
+    const handleIntersection = (entries, observer) => {
+      if (!entries[0].isIntersecting) return;
+
+      observer.unobserve(productRecommendationsSection);
+
+      const url = productRecommendationsSection.dataset.url;
+
+      fetch(url)
+        .then(response => response.text())
+        .then(text => {
+          const html = document.createElement('div');
+          html.innerHTML = text;
+
+          const recommendations = html.querySelector('.product-recommendations');
+
+          if (recommendations && recommendations.innerHTML.trim().length) {
+            productRecommendationsSection.innerHTML = recommendations.innerHTML;
+          }
+        })
+        .catch(e => console.error(e));
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, {
+      rootMargin: '0px 0px 200px 0px'
+    });
+
+    observer.observe(productRecommendationsSection);
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "You may also like"
+    }
+  ]
+}
+{% endschema %}

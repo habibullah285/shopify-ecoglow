@@ -20,9 +20,17 @@
                 <p class="text-sm text-gray-600 cursor-auto ml-2">{{ product.compare_at_price | money }}</p>
             </del>
             {% endif %}
-            <div class="ml-auto">
+            {% comment %} <div class="ml-auto">
             {% render 'icon-shoping-bag' %}
-            </div>
+            </div> {% endcomment %}
+            <!-- Add to Cart Form -->
+            <!-- Add to Cart Button -->
+            {% if product.selected_or_first_available_variant %}
+                <button class="add-to-cart-btn cursor-pointer ml-auto py-2 px-2"
+                        data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                {% render 'icon-shoping-bag' %}
+                </button>
+            {% endif %}
         </div>
     </div>
 </div>
