@@ -1,83 +1,59 @@
-{% comment %}
-  This section is used in the list-collections template to render a list of
-  collections.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
-
-<h1>{{ 'collections.title' | t }}</h1>
-
-<div
-  class="collections {{ section.settings.grid_item_width }}"
-  style="--grid-gap: {{ section.settings.grid_gap }}px"
->
-  {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
+<div class="relative bg-white lg:container lg:mx-auto">
+  <div class="mx-auto pt-14 pb-9">
+    <!-- Section Title & Description -->
+    <div class="text-center mb-16">
+      {% if section.settings.section_title != blank %}
+        <h2 class="font-bold text-4xl mb-4">{{ section.settings.section_title }}</h2>
       {% endif %}
+      {% if section.settings.section_description != blank %}
+        <p class="text-md">{{ section.settings.section_description }}</p>
+      {% endif %}
+    </div>
 
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[80px]">
+      {% assign classes = "col-span-2 row-span-7 py-10 px-10 bg-gray-700,col-span-1 row-span-4 py-10 px-10 bg-gray-700,col-span-1 row-span-3 py-10 px-10 bg-gray-700,col-span-1 row-span-4 py-10 px-10 bg-gray-700,col-span-1 row-span-3 py-10 px-10 bg-gray-700" | split: "," %}
 
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
+      {% for collection in collections limit:5 %}
+        {% assign cls = classes[forloop.index0] %}
+
+        {% if collection.image %}
+          {% assign bg_image = collection.image | image_url: width: 800 %}
+        {% else %}
+          {% assign bg_image = collection.products.first.featured_image | image_url: width: 400 %}
         {% endif %}
-      </div>
-    </a>
-  {% endfor %}
-</div>
 
-{% stylesheet %}
-  .collections {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
-  }
-  .collections--compact {
-    --collection-card-size: 160px;
-  }
-  .collections--full {
-    --collection-card-size: 280px;
-  }
-  .collection-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-{% endstylesheet %}
+        <div class="{{ cls }} bg-cover bg-center rounded-xl" style="background-image: url('{{ bg_image }}');">
+          <a href="{{ collection.url }}" class="block h-full w-full">
+            <div class="px-4 py-3 w-full bg-white/70 bottom-0 rounded-b-xl">
+              <p class="text-lg font-bold text-black truncate block capitalize">{{ collection.title }}</p>
+            </div>
+          </a>
+        </div>
+
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
 {% schema %}
 {
-  "name": "t:general.collections_grid",
+  "name": "Collections Grid",
   "settings": [
     {
-      "type": "select",
-      "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
-      "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
-      ],
-      "default": "collections--full"
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Collection list"
     },
     {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "t:labels.grid_gap",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 10
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section description",
+      "default": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
     }
   ],
-  "presets": [{ "name": "t:general.collections_grid" }]
+  "presets": [{ "name": "Collections Grid" }]
 }
 {% endschema %}
+

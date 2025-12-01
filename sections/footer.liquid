@@ -13,7 +13,7 @@
         <div class="flex justify-start">
           {% if footer_logo %}
             <a href="{{ routes.root_url }}">
-              {{ footer_logo | image_url: width: 150 | image_tag: class: "footer-logo h-auto w-auto", alt: shop.name }}
+              {{ footer_logo | image_url: width: 150 | image_tag: class: "footer-logo", alt: shop.name }}
             </a>
           {% else %}
             <a href="{{ routes.root_url }}">
