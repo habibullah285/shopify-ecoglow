@@ -91,9 +91,9 @@
 
             {% render 'search-modal' %}
 
-            <a href="javascript:void(0);" id="cart-button" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900 flex items-center">
+            <a href="javascript:void(0);" id="cart-button" class="whitespace-nowrap relative text-base text-gray-500 hover:text-gray-900 flex items-center">
                 {% if cart.item_count > 0 %}
-                <div id="cart-count" class="mr-1">{{ cart.item_count }}</div>
+                <div id="cart-count" class="mr-1 absolute -right-2 top-0 flex items-center justify-center bg-black text-white rounded-full text-[8px] w-4 h-4">{{ cart.item_count }}</div>
                 {% endif %}
                 {% render 'icon-shoping-bag' %}
             </a>
