@@ -17,6 +17,7 @@
       "header": {
         "type": "header",
         "settings": {
+          "header_logo": "shopify://shop_images/DokanPart.png",
           "mobile_menu_title": "Menu",
           "menu": "main-menu",
           "enable_search": true
@@ -27,12 +28,6 @@
         "settings": {
           "footer_logo": "shopify://shop_images/kids-beanie.jpg",
           "footer_text": "Browse our latest products and get exciting deals every day.",
-          "contact_title": "Contact",
-          "contact_menu": "",
-          "about_title": "About Us",
-          "aboutus_menu": "",
-          "services_title": "Our Services",
-          "services_menu": "",
           "footer_social_media": true,
           "show_payment_icons": true
         }
