@@ -18,14 +18,6 @@
         "button_url": ""
       }
     },
-    "collections_3qBVfq": {
-      "type": "collections",
-      "name": "t:general.collections_grid",
-      "settings": {
-        "grid_item_width": "collections--full",
-        "grid_gap": 10
-      }
-    },
     "banner-new-arrival": {
       "type": "banner-new-arrival",
       "settings": {
@@ -34,6 +26,14 @@
         "description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.",
         "button_link": "shopify://collections/all",
         "button_text": "Shop all"
+      }
+    },
+    "collections_jFXGKa": {
+      "type": "collections",
+      "name": "Collections Grid",
+      "settings": {
+        "section_title": "Collection list",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
       }
     },
     "featured_collection": {
@@ -51,8 +51,8 @@
   },
   "order": [
     "image-banner",
-    "collections_3qBVfq",
     "banner-new-arrival",
+    "collections_jFXGKa",
     "featured_collection"
   ]
 }
