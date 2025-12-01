@@ -15,7 +15,9 @@
         "title": "Browse our latest products",
         "sub_title": "Browse our latest products Browse our latest products.",
         "button_text": "Shop all",
-        "button_url": ""
+        "button_url": "",
+        "banner_image": "shopify://shop_images/Hero-Images-Before-you-publish.jpg",
+        "text_alignment": "center"
       }
     },
     "banner-new-arrival": {
