@@ -1,54 +1,90 @@
-<div class="bg-cover bg-center h-screen" style="background-image: url('{{ section.settings.banner_image | image_url: 12000 }}');" aria-label="Background image">
-    <div class="flex items-center justify-center h-full bg-black bg-opacity-50">
-      <div class="text-center text-white">
-        <h1 class="text-5xl font-bold">{{ section.settings.title }}</h1>
-        <p class="mt-4 text-xl">{{ section.settings.sub_title }}</p>
-        {% if section.settings.button_url == blank %}
-          {% assign shop_url = shop.secure_url %}
-        {% else %}
+{% assign text_align_class = '' %}
+{% assign justify_class = '' %}
+
+{% case section.settings.text_alignment %}
+  {% when 'left' %}
+    {% assign text_align_class = 'text-left ml-10' %}
+    {% assign justify_class = 'justify-start' %}
+  {% when 'right' %}
+    {% assign text_align_class = 'text-right mr-10' %}
+    {% assign justify_class = 'justify-end' %}
+  {% else %}
+    {% assign text_align_class = 'text-center' %}
+    {% assign justify_class = 'justify-center' %}
+{% endcase %}
+<section class="bg-cover bg-center h-screen"
+     {% if section.settings.banner_image != blank %}
+        style="background-image: url('{{ section.settings.banner_image | image_url: width: 1200 }}');"
+     {% else %}
+        style="background-color: #000;"
+     {% endif %}
+     aria-label="Background image">
+    <div class="w-full h-full bg-black/40">
+      <div class="container mx-auto flex items-center justify-center h-full {{ justify_class }}">
+        <div class="text-white {{ text_align_class }}">
+          <h1 class="text-5xl font-bold">{{ section.settings.title }}</h1>
+          <p class="mt-4 text-xl">{{ section.settings.sub_title }}</p>
+
+          {% if section.settings.button_url == blank %}
+            {% assign shop_url = shop.secure_url %}
+          {% else %}
             {% assign shop_url = section.settings.button_url %}
-        {% endif %}
-        <a href="{{ shop_url }}" class="mt-6 inline-block bg-red-600 hover:bg-red-800 text-white py-3 px-6 rounded-full">
-          {{ section.settings.button_text }}
-        </a>
+          {% endif %}
+
+          <a href="{{ shop_url }}" class="mt-6 inline-block bg-red-600 hover:bg-red-800 text-white py-3 px-6 rounded-full">
+            {{ section.settings.button_text }}
+          </a>
+        </div>
       </div>
     </div>
-</div>
+</section>
 
-  {% schema %}
-    {
-        "name": "Image Banner",
-        "tag": "section",
-        "settings": [
-            {
-                "type": "text",
-                "id": "title",
-                "default": "Browse our latest products",
-                "label": "Heading Title"
-            },
-            {
-                "type": "text",
-                "id": "sub_title",
-                "default": "Browse our latest products Browse our latest products.",
-                "label": "Sub Title"
-            },
-            {
-                "type": "text",
-                "id": "button_text",
-                "default": "Shop all",
-                "label": "Button Text"
-            },
-            {
-              "type": "url",
-              "id": "button_url",
-              "label": "Button URL"
-            },
-            {
-              "type": "image_picker",
-              "id": "banner_image",
-              "label": "Select Image",
-              "info": "Recommended size 1200X800px"
-            }
-        ]
-    }
+
+{% schema %}
+  {
+      "name": "Image Banner",
+      "tag": "section",
+      "settings": [
+          {
+              "type": "text",
+              "id": "title",
+              "default": "Browse our latest products",
+              "label": "Heading Title"
+          },
+          {
+              "type": "text",
+              "id": "sub_title",
+              "default": "Browse our latest products Browse our latest products.",
+              "label": "Sub Title"
+          },
+          {
+              "type": "text",
+              "id": "button_text",
+              "default": "Shop all",
+              "label": "Button Text"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          },
+          {
+            "type": "image_picker",
+            "id": "banner_image",
+            "label": "Select Image",
+            "info": "Recommended size 1200X800px"
+          },
+           {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text Alignment",
+            "default": "center",
+            "options": [
+              { "label": "Left", "value": "left" },
+              { "label": "Center", "value": "center" },
+              { "label": "Right", "value": "right" }
+            ]
+          }
+      ]
+  }
 {% endschema %}
