@@ -28,6 +28,14 @@
         "button_text": "Shop all"
       }
     },
+    "collections_jFXGKa": {
+      "type": "collections",
+      "name": "Collections Grid",
+      "settings": {
+        "section_title": "Collection list",
+        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -39,20 +47,12 @@
         "mobile_columns": 1,
         "product_limit": 6
       }
-    },
-    "collections_jFXGKa": {
-      "type": "collections",
-      "name": "Collections Grid",
-      "settings": {
-        "section_title": "Collection list",
-        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
-      }
     }
   },
   "order": [
-    "collections_jFXGKa",
     "image-banner",
     "banner-new-arrival",
+    "collections_jFXGKa",
     "featured_collection"
   ]
 }
