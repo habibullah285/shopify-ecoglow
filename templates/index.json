@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "banner-new-arrival": {
+      "type": "banner-new-arrival",
+      "settings": {
+        "banner_image": "shopify://shop_images/new-arrival_476695a7-cd2c-4ac8-93db-b0f7f2f4f9ee.png",
+        "title": "Browse our latest products",
+        "description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.",
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop all"
+      }
+    },
     "image-banner": {
       "type": "image-banner",
       "settings": {
@@ -18,16 +28,6 @@
         "button_url": "",
         "banner_image": "shopify://shop_images/Hero-Images-Before-you-publish.jpg",
         "text_alignment": "center"
-      }
-    },
-    "banner-new-arrival": {
-      "type": "banner-new-arrival",
-      "settings": {
-        "banner_image": "shopify://shop_images/new-arrival_476695a7-cd2c-4ac8-93db-b0f7f2f4f9ee.png",
-        "title": "Browse our latest products",
-        "description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.",
-        "button_link": "shopify://collections/all",
-        "button_text": "Shop all"
       }
     },
     "collections_jFXGKa": {
@@ -52,8 +52,8 @@
     }
   },
   "order": [
-    "image-banner",
     "banner-new-arrival",
+    "image-banner",
     "collections_jFXGKa",
     "featured_collection"
   ]
