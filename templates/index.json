@@ -13,10 +13,10 @@
       "type": "banner-new-arrival",
       "settings": {
         "banner_image": "shopify://shop_images/new-arrival_476695a7-cd2c-4ac8-93db-b0f7f2f4f9ee.png",
-        "title": "Browse our latest products",
+        "title": "New Arrival",
         "description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.",
-        "button_link": "shopify://collections/all",
-        "button_text": "Shop all"
+        "button_link": "shopify://products/beaded-bridesmaid-clutch-bag",
+        "button_text": "Shop Now"
       }
     },
     "image-banner": {
