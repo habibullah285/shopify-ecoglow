@@ -49,12 +49,54 @@
         "mobile_columns": 1,
         "product_limit": 6
       }
+    },
+    "image_with_text_PLi3P6": {
+      "type": "image-with-text",
+      "blocks": {
+        "description_U66ay9": {
+          "type": "description",
+          "settings": {
+            "sub_heading": "<p>Hello Banladesh</p>"
+          }
+        },
+        "title_eWnQq7": {
+          "type": "title",
+          "settings": {
+            "heading": "Hello World"
+          }
+        },
+        "description_xH7w3h": {
+          "type": "description",
+          "settings": {
+            "sub_heading": "<p>Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.<br/></p>"
+          }
+        },
+        "action_3jJVga": {
+          "type": "action",
+          "settings": {
+            "btn_label": "See More",
+            "btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "description_U66ay9",
+        "title_eWnQq7",
+        "description_xH7w3h",
+        "action_3jJVga"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/putting-on-your-shoes_925x_6663a1e7-02b7-4a25-b3e3-aeaadbce46b4.jpg",
+        "position": "left"
+      }
     }
   },
   "order": [
     "banner-new-arrival",
     "image-banner",
     "collections_jFXGKa",
-    "featured_collection"
+    "featured_collection",
+    "image_with_text_PLi3P6"
   ]
 }
