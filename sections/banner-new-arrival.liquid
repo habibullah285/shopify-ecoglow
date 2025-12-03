@@ -1,5 +1,5 @@
-<section class="w-full my-5">
-  <div class="container mx-auto flex flex-col md:flex-row items-center bg-[#D2D5DF]">
+<section class="w-full my-5 bg-[#D2D5DF]">
+  <div class="container mx-auto flex flex-col md:flex-row items-center">
     <div class="md:w-1/2 mb-8 md:mb-0 px-20 pt-5 pb-5">
       <div class="max-w-[440px]">
           <h1 class="text-[68px] leading-[72px] pb-6">{{ section.settings.title }}</h1>
@@ -18,7 +18,7 @@
         {{ section.settings.banner_image
             | image_url: width: 900
             | image_tag: 
-              class: 'w-full h-full object-cover -mt-[35px]', 
+              class: 'w-full h-full object-cover -mt-[30px] z-[1]', 
               alt: section.settings.title 
         }}
       {% endif %}

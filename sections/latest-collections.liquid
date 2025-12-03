@@ -1,0 +1,107 @@
+<section class="w-full py-16">
+  <div class="container mx-auto px-4">
+    <div class="w-full text-center">
+        <h2 class="text-4xl font-semibold mb-2">
+        {{ section.settings.heading }}
+        </h2>
+
+        <p class="text-gray-500">
+        {{ section.settings.subheading }}
+        </p>
+    </div>
+    
+
+    {% assign all_collections = section.blocks %}
+
+    <!-- Tabs -->
+    <div class="mt-6 flex justify-center gap-6">
+      {% for block in all_collections %}
+        {% assign col = block.settings.collection %}
+        <button class="tab-btn cursor-pointer pb-1 {% if forloop.first %}text-black font-medium border-b-2 border-black{% else %}text-gray-500{% endif %}" data-tab="tab-{{ block.id }}">
+          {{ col.title }}
+        </button>
+      {% endfor %}
+    </div>
+
+    <!-- Swipers -->
+    <div class="relative mt-12">
+      {% for block in all_collections %}
+        {% assign col = block.settings.collection %}
+        
+        <div id="tab-{{ block.id }}" class="swiper mySwiper {% unless forloop.first %}!hidden{% endunless %}">
+          <div class="swiper-wrapper">
+            {% for product in col.products limit: section.settings.products_to_show %}
+              <div class="swiper-slide">
+                <div class="bg-white">
+                  <a href="{{ product.url }}">
+                    {% if product.featured_image %}
+                        {{ product.featured_image 
+                            | image_url: width: 360 
+                            | image_tag: class: 'h-60 object-cover'
+                        }}
+                    {% endif %}
+                  </a>
+                  <h3 class="mt-4 font-medium">{{ product.title }}</h3>
+                  <p class="text-gray-600 text-sm">{{ product.price | money }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="swiper-button-prev text-black"></div>
+          <div class="swiper-button-next text-black"></div>
+
+          <!-- Collection Button -->
+          <a href="{{ col.url }}" class="block mt-10 bg-black text-white px-8 py-3 w-fit mx-auto">
+            View All Products
+          </a>
+        </div>
+
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Latest Collections Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest Collections"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover our top picks for you."
+    },
+    {
+      "type": "number",
+      "id": "products_to_show",
+      "label": "How many products to show?",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection Item",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Latest Collections Slider"
+    }
+  ]
+}
+{% endschema %}

@@ -8,10 +8,12 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     {{ content_for_header }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+
     {{ 'output.css' | asset_url | stylesheet_tag }}
     {% comment %} {{ 'swiper.min.css' | asset_url | stylesheet_tag }}
     {{ 'swiper-bundle.min.js' | asset_url | script_tag }} {% endcomment %}
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+    
   </head>
   <body>
     {% section 'header' %}
@@ -24,5 +26,6 @@
     {%- comment -%} Custom JS file (deferred) {%- endcomment -%}
     <script src="{{ 'output.js' | asset_url }}" defer></script>
     <script src="{{ 'custom-add-to-cart.js' | asset_url }}" defer></script>
+    <script src="{{ 'slider.js' | asset_url }}" defer></script>
   </body>
 </html>

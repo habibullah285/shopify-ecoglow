@@ -1,5 +1,5 @@
-<div class="relative bg-white lg:container lg:mx-auto">
-  <div class="mx-auto pt-14 pb-9">
+<section class="relative bg-white w-full">
+  <div class="container mx-auto pt-14 pb-9">
     <!-- Section Title & Description -->
     <div class="text-center mb-16">
       {% if section.settings.section_title != blank %}
@@ -23,9 +23,9 @@
           {% assign bg_image = collection.products.first.featured_image | image_url: width: 400 %}
         {% endif %}
 
-        <div class="{{ cls }} bg-cover bg-center rounded-xl" style="background-image: url('{{ bg_image }}');">
+        <div class="{{ cls }} bg-cover relative bg-center rounded-xl" style="background-image: url('{{ bg_image }}');">
           <a href="{{ collection.url }}" class="block h-full w-full">
-            <div class="px-4 py-3 w-full bg-white/70 bottom-0 rounded-b-xl">
+            <div class="absulate px-4 py-3 w-full absolute left-5 bottom-5">
               <p class="text-lg font-bold text-black truncate block capitalize">{{ collection.title }}</p>
             </div>
           </a>
@@ -34,7 +34,7 @@
       {% endfor %}
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
