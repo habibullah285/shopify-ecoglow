@@ -120,6 +120,26 @@
       "settings": {
         "seasonal_products": "woman-collection"
       }
+    },
+    "latest_collections_wVxB37": {
+      "type": "latest-collections",
+      "blocks": {
+        "collection_block_jtqBnP": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "featured-collection"
+          }
+        }
+      },
+      "block_order": [
+        "collection_block_jtqBnP"
+      ],
+      "name": "Latest Collections Slider",
+      "settings": {
+        "heading": "Limited Time Offer",
+        "subheading": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut.",
+        "products_to_show": 5
+      }
     }
   },
   "order": [
@@ -128,6 +148,7 @@
     "featured_collection",
     "image_with_text_PLi3P6",
     "latest_collections_mGbdp3",
-    "seasonal_products_8fhei7"
+    "seasonal_products_8fhei7",
+    "latest_collections_wVxB37"
   ]
 }
