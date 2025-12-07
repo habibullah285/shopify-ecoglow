@@ -90,6 +90,33 @@
         "image": "shopify://shop_images/putting-on-your-shoes_925x_6663a1e7-02b7-4a25-b3e3-aeaadbce46b4.jpg",
         "position": "left"
       }
+    },
+    "latest_collections_mGbdp3": {
+      "type": "latest-collections",
+      "blocks": {
+        "collection_block_qXFGNE": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "man-collection"
+          }
+        },
+        "collection_block_T8MYRt": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "woman-collection"
+          }
+        }
+      },
+      "block_order": [
+        "collection_block_qXFGNE",
+        "collection_block_T8MYRt"
+      ],
+      "name": "Latest Collections Slider",
+      "settings": {
+        "heading": "Latest Collections",
+        "subheading": "Discover our top picks for you.",
+        "products_to_show": 5
+      }
     }
   },
   "order": [
@@ -97,6 +124,7 @@
     "image-banner",
     "collections_jFXGKa",
     "featured_collection",
-    "image_with_text_PLi3P6"
+    "image_with_text_PLi3P6",
+    "latest_collections_mGbdp3"
   ]
 }
