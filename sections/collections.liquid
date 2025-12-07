@@ -25,8 +25,10 @@
 
         <div class="{{ cls }} bg-cover relative bg-center rounded-xl" style="background-image: url('{{ bg_image }}');">
           <a href="{{ collection.url }}" class="block h-full w-full">
-            <div class="absulate px-4 py-3 w-full absolute left-5 bottom-5">
-              <p class="text-lg font-bold text-black truncate block capitalize">{{ collection.title }}</p>
+            <div class="absulate px-5 py-5 w-full absolute left-0 bottom-0 bg-gray-50/30">
+              <p class="text-lg font-bold text-black capitalize max-w-[90px] break-words">
+                {{ collection.title }}
+              </p>
             </div>
           </a>
         </div>

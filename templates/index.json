@@ -19,17 +19,6 @@
         "button_text": "Shop Now"
       }
     },
-    "image-banner": {
-      "type": "image-banner",
-      "settings": {
-        "title": "Browse our latest products",
-        "sub_title": "Browse our latest products Browse our latest products.",
-        "button_text": "Shop all",
-        "button_url": "",
-        "banner_image": "shopify://shop_images/Hero-Images-Before-you-publish.jpg",
-        "text_alignment": "center"
-      }
-    },
     "collections_jFXGKa": {
       "type": "collections",
       "name": "Collections Grid",
@@ -128,7 +117,6 @@
   },
   "order": [
     "banner-new-arrival",
-    "image-banner",
     "collections_jFXGKa",
     "featured_collection",
     "image_with_text_PLi3P6",
