@@ -113,6 +113,13 @@
         "subheading": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut.",
         "products_to_show": 6
       }
+    },
+    "seasonal_products_8fhei7": {
+      "type": "seasonal-products",
+      "name": "Seasonal Products",
+      "settings": {
+        "seasonal_products": "woman-collection"
+      }
     }
   },
   "order": [
@@ -120,6 +127,7 @@
     "collections_jFXGKa",
     "featured_collection",
     "image_with_text_PLi3P6",
-    "latest_collections_mGbdp3"
+    "latest_collections_mGbdp3",
+    "seasonal_products_8fhei7"
   ]
 }
