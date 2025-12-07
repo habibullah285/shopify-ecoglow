@@ -94,6 +94,12 @@
     "latest_collections_mGbdp3": {
       "type": "latest-collections",
       "blocks": {
+        "collection_block_c64cT9": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "cosmetics"
+          }
+        },
         "collection_block_qXFGNE": {
           "type": "collection_block",
           "settings": {
@@ -108,6 +114,7 @@
         }
       },
       "block_order": [
+        "collection_block_c64cT9",
         "collection_block_qXFGNE",
         "collection_block_T8MYRt"
       ],
