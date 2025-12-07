@@ -1,0 +1,84 @@
+{% assign collection = section.settings.seasonal_products %}
+<section class="w-full bg-white">
+  <div class="container mx-auto px-4 my-5 grid grid-cols-1 lg:grid-cols-2">
+    <!-- LEFT TEXT AREA -->
+    <div id="seasonal-text-area"class="bg-black flex flex-col justify-center text-white px-8 lg:px-16 py-16">
+      {% if collection != blank and collection.products.size > 0 %}
+        {% assign first_product = collection.products.first %}
+        <h1 id="seasonal-title" class="text-4xl lg:text-5xl font-semibold leading-tight mb-6">
+          {{ first_product.title }}
+        </h1>
+        <p id="seasonal-description" class="text-gray-300 max-w-md mb-8">
+          {{ first_product.description | strip_html | truncate: 200 }}
+        </p>
+
+        <a id="seasonal-button" href="{{ first_product.url }}"class="inline-block border border-white px-8 py-3 uppercase text-sm tracking-wide max-w-[180px] text-center">
+          Shop Now
+        </a>
+      {% else %}
+        <p class="text-white">Please select a collection in the section settings.</p>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT IMAGES GRID -->
+    <div class="grid grid-cols-2 gap-1 pl-1">
+      {% if collection != blank %}
+        {% for product in collection.products limit:4 %}
+          <div class="cursor-pointer seasonal-product" 
+               data-title="{{ product.title | escape }}" 
+               data-description="{{ product.description | strip_html | truncate: 200 | escape }}" 
+               data-url="{{ product.url }}">
+            {% if product.featured_image %}
+                {{ product.featured_image 
+                    | image_url: width: 400, height: 400 
+                    | image_tag: class: 'object-cover'
+                }}
+            {% else %}
+                {{ 'https://via.placeholder.com/400x400' | image_tag: class: 'object-cover', alt: 'No Image' }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const productBlocks = document.querySelectorAll('.seasonal-product');
+    const titleEl = document.getElementById('seasonal-title');
+    const descEl = document.getElementById('seasonal-description');
+    const btnEl = document.getElementById('seasonal-button');
+
+    productBlocks.forEach(block => {
+      block.addEventListener('click', () => {
+        const title = block.getAttribute('data-title');
+        const description = block.getAttribute('data-description');
+        const url = block.getAttribute('data-url');
+
+        titleEl.textContent = title;
+        descEl.textContent = description;
+        btnEl.href = url;
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Seasonal Products",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "seasonal_products",
+      "label": "Select Collection"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Seasonal Products"
+    }
+  ]
+}
+{% endschema %}
