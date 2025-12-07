@@ -23,14 +23,14 @@
       "type": "collections",
       "name": "Collections Grid",
       "settings": {
-        "section_title": "Collection list",
-        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
+        "section_title": "Featured Collections",
+        "section_description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut."
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "section_title": "Featured Collection",
+        "section_title": "Latest Collections",
         "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
         "featured_collection": "woman-collection",
         "desktop_columns": 3,
@@ -110,7 +110,7 @@
       "name": "Latest Collections Slider",
       "settings": {
         "heading": "Latest Collections",
-        "subheading": "Discover our top picks for you.",
+        "subheading": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut.",
         "products_to_show": 6
       }
     }
