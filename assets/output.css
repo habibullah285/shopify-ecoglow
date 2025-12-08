@@ -280,6 +280,9 @@
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
+  .left-1 {
+    left: calc(var(--spacing) * 1);
+  }
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
@@ -312,6 +315,12 @@
   }
   .row-span-3 {
     grid-row: span 3 / span 3;
+  }
+  .row-span-4 {
+    grid-row: span 4 / span 4;
+  }
+  .row-span-7 {
+    grid-row: span 7 / span 7;
   }
   .container {
     width: 100%;
@@ -472,6 +481,9 @@
   .inline-flex {
     display: inline-flex;
   }
+  .table {
+    display: table;
+  }
   .size-5 {
     width: calc(var(--spacing) * 5);
     height: calc(var(--spacing) * 5);
@@ -603,8 +615,15 @@
   .flex-1 {
     flex: 1;
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .origin-top-left {
     transform-origin: 0 0;
+  }
+  .-translate-x-1 {
+    --tw-translate-x: calc(var(--spacing) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .-translate-x-1\/2 {
     --tw-translate-x: calc(calc(1/2 * 100%) * -1);
@@ -964,8 +983,14 @@
   .pt-8 {
     padding-top: calc(var(--spacing) * 8);
   }
+  .pt-10 {
+    padding-top: calc(var(--spacing) * 10);
+  }
   .pt-14 {
     padding-top: calc(var(--spacing) * 14);
+  }
+  .pt-15 {
+    padding-top: calc(var(--spacing) * 15);
   }
   .pt-16 {
     padding-top: calc(var(--spacing) * 16);
@@ -1138,6 +1163,9 @@
   .line-through {
     text-decoration-line: line-through;
   }
+  .underline {
+    text-decoration-line: underline;
+  }
   .placeholder-gray-400 {
     &::placeholder {
       color: var(--color-gray-400);
@@ -1174,6 +1202,10 @@
   }
   .ring-black {
     --tw-ring-color: var(--color-black);
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
   }
   .invert {
     --tw-invert: invert(100%);
@@ -1749,6 +1781,11 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-blur {
   syntax: "*";
   inherits: false;
@@ -1853,6 +1890,7 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;
