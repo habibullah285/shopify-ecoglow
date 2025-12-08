@@ -37,68 +37,7 @@
             <div class="swiper-wrapper">
               {% for product in col.products limit: section.settings.products_to_show %}
                 <div class="swiper-slide">
-                  <div class="bg-white group relative">
-                    <div class="relative">
-                      <a href="{{ product.url }}">
-                        {% if product.featured_image %}
-                          {{ product.featured_image 
-                              | image_url: width: 360, height: 320 
-                              | image_tag: class: 'object-cover'
-                          }}
-                        {% endif %}
-                      </a>
-                      {%- assign original_price = product.selected_or_first_available_variant.compare_at_price -%}
-                      {%- assign sale_price = product.selected_or_first_available_variant.price -%}
-
-                      {% if original_price and original_price > sale_price %}
-                        {% assign discount_percent = original_price | minus: sale_price | times: 100 | divided_by: original_price | round %}
-                        <div class="discount absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
-                          {{ discount_percent }}% OFF
-                        </div>
-                      {% endif %}
-                      <!-- Hover Icons -->
-                      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 px-3 py-2 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-2">
-                        {% assign variant = product.selected_or_first_available_variant %}
-
-                        {% if variant and variant.available %}
-                          <button class="add-to-cart-btn cursor-pointer py-1 mx-2"
-                                  data-variant-id="{{ variant.id }}">
-                              {% render 'icon-add-to-cart' %}
-                          </button>
-                        {% endif %}
-
-
-                        <button class="cursor-pointer py-1 mx-2"
-                                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                          {% render 'icon-interaction' %}
-                        </button>
-
-                        <button class="cursor-pointer py-1 mx-2"
-                                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                          {% render 'icon-heart' %}
-                        </button>
-
-                      </div>
-                    </div>
-
-                    <div class="w-full text-center mt-4">
-                      <h3 class="mt-4 font-medium"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-                      {% if original_price and original_price > sale_price %}
-                        <div class="text-sm mt-1 flex items-center justify-center gap-2">
-                          <span class="text-red-600 line-through">
-                            {{ original_price | money }}
-                          </span>
-                          <span class="text-gray-700 font-semibold">
-                            {{ sale_price | money }}
-                          </span>
-                        </div>
-                      {% else %}
-                        <p class="text-gray-700 text-sm">
-                          {{ sale_price | money }}
-                        </p>
-                      {% endif %}
-                    </div>
-                  </div>
+                  {%- render 'new-product-card', product:product -%}
                 </div>
               {% endfor %}
             </div>
