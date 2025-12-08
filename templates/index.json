@@ -100,6 +100,20 @@
         "products_to_show": 6
       }
     },
+    "seasonal_collections_3QD8KP": {
+      "type": "seasonal-collections",
+      "name": "Seasonal Collections",
+      "settings": {
+        "title": "Discover Our Exclusive Seasonal Collection",
+        "description": "Handpicked Seasonal essentials crafted for comfort and style. Explore our latest arrivals and elevate your seasonal wardrobe.",
+        "button_text": "Shop Now",
+        "button_url": "shopify://collections/winter",
+        "image_1": "shopify://shop_images/menswear-blue-zip-up-jacket_925x_4f8050d6-7fbb-4595-ab5f-36043dd9e278.jpg",
+        "image_2": "shopify://shop_images/smiling-woman-on-snowy-afternoon_925x_228e0d29-d2f1-4f84-bbae-ea9dbb968bc6.jpg",
+        "image_3": "shopify://shop_images/Hoodie.png",
+        "image_4": "shopify://shop_images/woman-puts-hand-in-pocket.jpg"
+      }
+    },
     "seasonal_products_8fhei7": {
       "type": "seasonal-products",
       "name": "Seasonal Products",
@@ -132,6 +146,7 @@
     "banner-new-arrival",
     "collections_epxCB4",
     "latest_collections_mGbdp3",
+    "seasonal_collections_3QD8KP",
     "seasonal_products_8fhei7",
     "latest_collections_wVxB37"
   ]
