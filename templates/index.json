@@ -19,11 +19,50 @@
         "button_text": "Shop Now"
       }
     },
-    "collections_jFXGKa": {
+    "collections_epxCB4": {
       "type": "collections",
+      "blocks": {
+        "collection_item_AHJ4F6": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "t-shirt"
+          }
+        },
+        "collection_item_KDpBhy": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "pants"
+          }
+        },
+        "collection_item_EYG4Yf": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "hoodie"
+          }
+        },
+        "collection_item_zjeU8i": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "sports-bra"
+          }
+        },
+        "collection_item_xwP7bK": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "bomber-jacket"
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_AHJ4F6",
+        "collection_item_KDpBhy",
+        "collection_item_EYG4Yf",
+        "collection_item_zjeU8i",
+        "collection_item_xwP7bK"
+      ],
       "name": "Collections Grid",
       "settings": {
-        "section_title": "Featured Collections",
+        "section_title": "Featured Collection",
         "section_description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut."
       }
     },
@@ -78,7 +117,9 @@
           }
         }
       },
-      "block_order": ["collection_block_jtqBnP"],
+      "block_order": [
+        "collection_block_jtqBnP"
+      ],
       "name": "Latest Collections Slider",
       "settings": {
         "heading": "Limited Time Offer",
@@ -89,7 +130,7 @@
   },
   "order": [
     "banner-new-arrival",
-    "collections_jFXGKa",
+    "collections_epxCB4",
     "latest_collections_mGbdp3",
     "seasonal_products_8fhei7",
     "latest_collections_wVxB37"
