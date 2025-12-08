@@ -140,6 +140,15 @@
         "subheading": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut.",
         "products_to_show": 5
       }
+    },
+    "instagram_feed_3gKgcK": {
+      "type": "instagram-feed",
+      "name": "Instagram Feed",
+      "settings": {
+        "title": "Follow Us on Instagram",
+        "description": "Check out our latest updates from Instagram.",
+        "access_token": "YOUR_ACCESS_TOKEN_HERE"
+      }
     }
   },
   "order": [
@@ -148,6 +157,7 @@
     "latest_collections_mGbdp3",
     "seasonal_collections_3QD8KP",
     "seasonal_products_8fhei7",
-    "latest_collections_wVxB37"
+    "latest_collections_wVxB37",
+    "instagram_feed_3gKgcK"
   ]
 }
