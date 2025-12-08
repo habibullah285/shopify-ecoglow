@@ -1,0 +1,77 @@
+{% schema %}
+{
+  "name": "Instagram Feed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Follow Us on Instagram"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Check out our latest updates from Instagram."
+    },
+    {
+      "type": "text",
+      "id": "access_token",
+      "label": "Instagram Access Token",
+      "default": "YOUR_ACCESS_TOKEN_HERE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Feed",
+      "category": "Social"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="w-full bg-white py-12">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl lg:text-4xl font-semibold mb-4">{{ section.settings.title }}</h2>
+    <p class="text-gray-600 mb-8 max-w-2xl mx-auto">{{ section.settings.description }}</p>
+
+    <div id="instagram-feed" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const accessToken = "{{ section.settings.access_token }}";
+  const feedContainer = document.getElementById("instagram-feed");
+
+  if (!accessToken || accessToken === "YOUR_ACCESS_TOKEN_HERE") {
+    feedContainer.innerHTML = "<p class='col-span-4 text-gray-500'>Instagram Access Token not set. Please update the section settings.</p>";
+    return;
+  }
+
+  fetch(`https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink&access_token=${accessToken}`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.data || data.data.length === 0) {
+        feedContainer.innerHTML = "<p class='col-span-4 text-gray-500'>No Instagram posts found.</p>";
+        return;
+      }
+
+      const images = data.data.slice(0, 4); // show latest 4 posts
+      images.forEach(item => {
+        const imgDiv = document.createElement('div');
+        imgDiv.classList.add("overflow-hidden", "rounded-lg");
+        imgDiv.innerHTML = `
+          <a href="${item.permalink}" target="_blank">
+            <img src="${item.media_url}" alt="${item.caption || 'Instagram Image'}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+          </a>
+        `;
+        feedContainer.appendChild(imgDiv);
+      });
+    })
+    .catch(err => {
+      console.error("Instagram fetch error:", err);
+      feedContainer.innerHTML = "<p class='col-span-4 text-gray-500'>Unable to load Instagram feed.</p>";
+    });
+});
+</script>

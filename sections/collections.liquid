@@ -1,6 +1,7 @@
 <section class="relative bg-white w-full">
   <div class="container mx-auto pt-14 pb-9">
-    <!-- Section Title & Description -->
+
+    <!-- Title -->
     <div class="text-center mb-16">
       {% if section.settings.section_title != blank %}
         <h2 class="font-bold text-4xl mb-4">{{ section.settings.section_title }}</h2>
@@ -12,31 +13,40 @@
 
     <!-- Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[80px]">
-      {% assign classes = "col-span-2 row-span-7 py-10 px-10 bg-gray-700,col-span-1 row-span-4 py-10 px-10 bg-gray-700,col-span-1 row-span-3 py-10 px-10 bg-gray-700,col-span-1 row-span-4 py-10 px-10 bg-gray-700,col-span-1 row-span-3 py-10 px-10 bg-gray-700" | split: "," %}
 
-      {% for collection in collections limit:5 %}
+      {% assign classes = "col-span-2 row-span-7,
+                           col-span-1 row-span-4,
+                           col-span-1 row-span-3,
+                           col-span-1 row-span-4,
+                           col-span-1 row-span-3" | split: "," %}
+
+      {% for block in section.blocks %}
+        {% assign collection = collections[block.settings.collection] %}
         {% assign cls = classes[forloop.index0] %}
 
-        {% if collection.image %}
-          {% assign bg_image = collection.image | image_url: width: 800 %}
-        {% else %}
-          {% assign bg_image = collection.products.first.featured_image | image_url: width: 400 %}
+        {% if collection %}
+          {% if collection.image %}
+            {% assign bg_image = collection.image | image_url: width: 800 %}
+          {% else %}
+            {% assign bg_image = collection.products.first.featured_image | image_url: width: 400 %}
+          {% endif %}
+
+          <div class="{{ cls }} py-10 px-10 bg-[#F1ECEC] bg-cover relative bg-center rounded-xl" style="background-image: url('{{ bg_image }}');">
+            <a href="{{ collection.url }}" class="block h-full w-full">
+              <div class="absulate px-5 py-5 w-full absolute left-0 bottom-0 bg-[#F1ECEC]/10">
+                <p class="text-lg font-bold text-black capitalize max-w-[90px] break-words">
+                  {{ collection.title }}
+                </p>
+              </div>
+            </a>
+          </div>
         {% endif %}
-
-        <div class="{{ cls }} bg-cover relative bg-center rounded-xl" style="background-image: url('{{ bg_image }}');">
-          <a href="{{ collection.url }}" class="block h-full w-full">
-            <div class="absulate px-5 py-5 w-full absolute left-0 bottom-0 bg-gray-50/30">
-              <p class="text-lg font-bold text-black capitalize max-w-[90px] break-words">
-                {{ collection.title }}
-              </p>
-            </div>
-          </a>
-        </div>
-
       {% endfor %}
+
     </div>
   </div>
 </section>
+
 
 {% schema %}
 {
@@ -55,7 +65,31 @@
       "default": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR"
     }
   ],
-  "presets": [{ "name": "Collections Grid" }]
+  "blocks": [
+    {
+      "type": "collection_item",
+      "name": "Collections",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Choose Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collections Grid",
+      "blocks": [
+        { "type": "collection_item" },
+        { "type": "collection_item" },
+        { "type": "collection_item" },
+        { "type": "collection_item" },
+        { "type": "collection_item" }
+      ]
+    }
+  ]
 }
 {% endschema %}
-

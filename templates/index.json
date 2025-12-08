@@ -27,59 +27,6 @@
         "section_description": "Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit ut."
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "section_title": "Latest Collections",
-        "section_description": "LOREM IPSUM DOLOR SIT AMET CONSECTETUR",
-        "featured_collection": "woman-collection",
-        "desktop_columns": 3,
-        "tablet_columns": 2,
-        "mobile_columns": 1,
-        "product_limit": 6
-      }
-    },
-    "image_with_text_PLi3P6": {
-      "type": "image-with-text",
-      "blocks": {
-        "description_U66ay9": {
-          "type": "description",
-          "settings": {
-            "sub_heading": "<p>Hello Banladesh</p>"
-          }
-        },
-        "title_eWnQq7": {
-          "type": "title",
-          "settings": {
-            "heading": "Hello World"
-          }
-        },
-        "description_xH7w3h": {
-          "type": "description",
-          "settings": {
-            "sub_heading": "<p>Egestas quam arcu convallis ipsum iaculis neque. Volutpat venenatis tincidunt non fermentum a velit mai soli ta haiplu out.<br/></p>"
-          }
-        },
-        "action_3jJVga": {
-          "type": "action",
-          "settings": {
-            "btn_label": "See More",
-            "btn_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "description_U66ay9",
-        "title_eWnQq7",
-        "description_xH7w3h",
-        "action_3jJVga"
-      ],
-      "name": "Image with text",
-      "settings": {
-        "image": "shopify://shop_images/putting-on-your-shoes_925x_6663a1e7-02b7-4a25-b3e3-aeaadbce46b4.jpg",
-        "position": "left"
-      }
-    },
     "latest_collections_mGbdp3": {
       "type": "latest-collections",
       "blocks": {
@@ -131,9 +78,7 @@
           }
         }
       },
-      "block_order": [
-        "collection_block_jtqBnP"
-      ],
+      "block_order": ["collection_block_jtqBnP"],
       "name": "Latest Collections Slider",
       "settings": {
         "heading": "Limited Time Offer",
@@ -145,8 +90,6 @@
   "order": [
     "banner-new-arrival",
     "collections_jFXGKa",
-    "featured_collection",
-    "image_with_text_PLi3P6",
     "latest_collections_mGbdp3",
     "seasonal_products_8fhei7",
     "latest_collections_wVxB37"
