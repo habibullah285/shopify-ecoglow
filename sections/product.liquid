@@ -58,7 +58,9 @@
                                 <h1 class="text-2xl font-semibold mb-2">{{ product.title | escape }}</h1>
                             
                             {%  when 'price' %}
-                                <p class="text-xl font-semibold my-4">{{ product.price | money_with_currency }}</p>
+                                <p id="product_price" class="text-xl font-semibold py-4">
+                                    {{ current_variant.price | money_with_currency }}
+                                </p>
                                 
                             {%  when 'description' %}
                                 <div class="text-gray-600 leading-relaxed text-sm my-4">
@@ -125,11 +127,13 @@
                                 </div>
                                 {% endunless %}
                                 <div>
-                                <select name="id" id="variant_selector" class="w-100 px-2 py-2 border-2 border-gray-900 my-3">
+                                <select name="id" id="variant_selector" class="hidden w-100 px-2 py-2 border-2 border-gray-900 my-3">
                                     {%  for variant in product.variants %}
                                         <option
                                             value="{{ variant.id }}"
                                             data-name="{{ variant.title | handleize | escape }}"
+                                            data-price="{{ variant.price }}"
+                                            data-money="{{ variant.price | money_with_currency }}"
                                             {% if variant == current_variant %} selected="selected" {% endif %}
                                             {% if variant.available == false %} data-sold="true" {% endif %}
                                             >
@@ -139,155 +143,87 @@
                                 </select>
                                 </div>
                             {%  when 'add_to_cart_btn' %}
-                                <button id="add_to_cart_button" type="submit" name="add" class="cursor-pointer bg-black text-white px-6 py-3">ADD TO CART</button>
+                                {% assign variant = product.selected_or_first_available_variant %}
+                                {% if variant and variant.available %}
+                                    <button name="add" class="add-to-cart-btn cursor-pointer bg-black text-white px-6 py-3"
+                                            data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                                            ADD TO CART
+                                    </button>
+                                {% else %}
+                                     <button  class="cursor-pointer bg-black text-white px-6 py-3">Sold Out</button>
+                                {% endif %}
+                               
 
                         {% endcase %}
                     {% endfor %}
                 {% endform %}
-
-
-                
-
-                {% comment %} <!-- SKU -->
-                <p class="text-sm text-gray-500 mt-10 mb-4">SKU: {{ product.selected_or_first_available_variant.sku }}</p>
-
-                <!-- Title -->
-                <h1 class="text-2xl font-semibold mb-2">{{product.title}}</h1>
-
-                <!-- Colors -->
-                <div class="mb-4">
-                    <h3 class="font-semibold mb-2">Colors</h3>
-
-                    <div class="flex gap-3">
-                        {% comment %} {% assign option_index = 0 %} {% endcomment %}
-                        {% for option in product.options_with_values %}
-                            {% if option.name == 'Color' %}
-                                {% for value in option.values %}
-
-                                    {% assign variant = product.variants | where: 'option1', value | first %}
-                                    {% if variant and variant.featured_media %}
-                                        {{ variant.featured_media | image_url: width: 100 | image_tag:
-                                            class: "color-swatch w-14 h-14 border rounded cursor-pointer"
-                                        }}
-                                    {% endif %}
-
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    <p id="color-label" class="text-gray-600 text-sm mt-2">
-                        {{ product.selected_or_first_available_variant.option1 }}
-                    </p>
-                </div>
-
-                <!-- Price -->
-                <p class="text-xl font-semibold my-4">{{ product.price | money_with_currency }}</p>
-
-                <!-- Quantity -->
-                <div class="flex items-center gap-4 mb-6">
-                    <button class="px-3 py-1 border">-</button>
-                    <span class="px-4">1</span>
-                    <button class="px-3 py-1 border">+</button>
-                </div>
-
-                <!-- Buttons -->
-                <div class="flex items-center gap-4">
-                    <button class="bg-black text-white px-6 py-3">
-                        ADD TO CART
-                    </button>
-
-                    <button class="flex items-center gap-2 text-gray-700">
-                        <span>♡</span> Add to wishlist
-                    </button>
-                </div>
-
-                <div class="product-form mt-1">
-                  {% form 'product', product %}
-                    {% assign current_variant = product.selected_or_first_available_variant %}
-
-                    <select name="id">
-                      {% for variant in product.variants %}
-                        <option
-                          value="{{ variant.id }}"
-                          {% if variant == current_variant %}
-                            selected="selected"
-                          {% endif %}
-                        >
-                          {{ variant.title }} - {{ variant.price | money }}
-                        </option>
-                      {% endfor %}
-                    </select>
-                    <br>
-
-                    <input type="text" name="quantity" min="1" value="1"><br>
-
-                    <input type="submit" value="Add to cart" class="bg-black text-white px-6 py-3">
-
-                  {% endform %}
-                </div> {% endcomment %}
 
             </div>
         </div>
 
         <!-- TABS -->
         <div class="mt-14 border-t pt-8">
-            <div class="flex gap-10 border-b pb-3 mb-6">
-                <button class="font-semibold border-b-2 border-black pb-2">DETAILS</button>
-                <button class="text-gray-600">REVIEW</button>
-                <button class="text-gray-600">SHIPPING</button>
-                <button class="text-gray-600">WASH INSTRUCTIONS</button>
+            <div class="flex gap-10 border-b pb-3 mb-6" id="dynamic-tabs-buttons">
+                {% assign tab_index = 1 %}
+
+                {% if product.description != blank %}
+                <button class="tab-btn font-semibold border-b-2 border-black" data-tab="tab-{{ tab_index }}">DETAILS</button>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+
+                {% if product.reviews != blank %}
+                <button class="tab-btn {% if tab_index != 1 %}text-gray-600{% endif %}" data-tab="tab-{{ tab_index }}">REVIEW</button>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+
+                {% if product.shipping_policy != blank %}
+                <button class="tab-btn {% if tab_index != 1 %}text-gray-600{% endif %}" data-tab="tab-{{ tab_index }}">SHIPPING</button>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+
+                {% if product.metafields.custom.wash_instructions != blank %}
+                <button class="tab-btn {% if tab_index != 1 %}text-gray-600{% endif %}" data-tab="tab-{{ tab_index }}">WASH INSTRUCTIONS</button>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
             </div>
 
-            <!-- Tab Content -->
-            <p class="text-gray-600 leading-relaxed text-sm">
-                {{ product.description }}
-            </p>
-        </div>
+            <div id="dynamic-tabs-contents">
+                {% assign tab_index = 1 %}
+
+                {% if product.description != blank %}
+                <div id="tab-{{ tab_index }}" class="tab-content">
+                    <p class="text-gray-600 leading-relaxed text-sm">{{ product.description }}</p>
+                </div>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+
+                {% if product.reviews != blank %}
+                <div id="tab-{{ tab_index }}" class="tab-content hidden">
+                    <p class="text-gray-600 leading-relaxed text-sm">{{ product.reviews }}</p>
+                </div>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+
+                {% if product.shipping_policy != blank %}
+                <div id="tab-{{ tab_index }}" class="tab-content hidden">
+                    <p class="text-gray-600 leading-relaxed text-sm">{{ product.shipping_policy }}</p>
+                </div>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+
+                {% if product.metafields.custom.wash_instructions != blank %}
+                <div id="tab-{{ tab_index }}" class="tab-content hidden">
+                    <p class="text-gray-600 leading-relaxed text-sm">{{ product.metafields.custom.wash_instructions }}</p>
+                </div>
+                {% assign tab_index = tab_index | plus: 1 %}
+                {% endif %}
+            </div>
+            </div>
     </div>
 </div>
 
 <script>
-    {% comment %} window.addEventListener('DOMContentLoaded', async ()=> {
-        const variantSelector = async ()=>{
-            const options = document.querySelectorAll("#productVariants .option");
-            let option_value = [];
-            options.forEach(elm=>{
-                let selected = elm.querySelector('input:checked').value;
-                option_value.push(selected);
-            });
-            option_value = option_value.join('-');
-            {% comment %} console.log("option value: ", option_value); {% endcomment %}
-
-            const selOptions = document.querySelectorAll('#variant_selector option');
-            selOptions.forEach(opt => {
-                const name = opt.dataset.name; 
-                const sold = opt.dataset.sold;
-                const btn = document.querySelector('[name="add"]');
-                if (name === option_value) {
-                    if (sold == "true") {
-                        btn.setAttribute('disabled', 'true');
-                        btn.innerText = "Sold Out";
-                    } else {
-                        btn.removeAttribute('disabled');
-                        btn.innerText = "ADD TO CART";
-                    }
-                    opt.selected = true;
-                } else {
-                    opt.selected = false;
-                }
-            });
-        }
-        await variantSelector();
-        const optionSelectors = document.querySelectorAll('#productVariants label.radio');
-        optionSelectors.forEach((elm)=> {
-            elm.addEventListener('click', ()=> {
-                variantSelector();
-            });
-        });
-        
-    }); {% endcomment %}
-window.addEventListener('DOMContentLoaded', async () => {
+{% comment %} window.addEventListener('DOMContentLoaded', async () => {
     const product_url = '{{ product.url }}'
     const variantSelector = async () => {
         const options = document.querySelectorAll("#productVariants .option");
@@ -302,10 +238,15 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         const variantOptions = document.querySelectorAll('#variant_selector option');
         const addBtn = document.querySelector('[name="add"]');
+        const priceElm = document.getElementById("product_price");
 
         variantOptions.forEach(opt => {
             const name = opt.dataset.name;
             const sold = opt.dataset.sold === "true";
+
+            const newPrice = opt.textContent.split(" - ").pop().trim();
+            console.log(newPrice);
+            priceElm.textContent = newPrice;
 
             if (name === optionValue) {
                 opt.selected = true;
@@ -341,6 +282,83 @@ window.addEventListener('DOMContentLoaded', async () => {
         });
     });
 
+}); {% endcomment %}
+document.addEventListener("DOMContentLoaded", () => {
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const target = btn.dataset.tab;
+
+            // Hide all contents
+            tabContents.forEach(c => c.classList.add("hidden"));
+
+            // Remove active styles from all buttons
+            tabButtons.forEach(b => {
+                b.classList.remove("border-b-2", "border-black", "font-semibold");
+                b.classList.add("text-gray-600");
+            });
+
+            // Show target content
+            document.getElementById(target).classList.remove("hidden");
+
+            // Add active style to clicked tab
+            btn.classList.add("border-b-2", "border-black", "font-semibold");
+            btn.classList.remove("text-gray-600");
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const priceElm = document.getElementById("product_price");
+    const variantSelect = document.getElementById("variant_selector");
+    const addBtn = document.querySelector('[name="add"]');
+    const product_url = "{{ product.url }}";
+
+    function updateVariant() {
+        const selected = variantSelect.options[variantSelect.selectedIndex];
+        if (!selected) return;
+
+        // update price
+        priceElm.textContent = selected.dataset.money;
+
+        // button state
+        if (selected.dataset.sold === "true") {
+            addBtn.disabled = true;
+            addBtn.innerText = "Sold Out";
+        } else {
+            addBtn.disabled = false;
+            addBtn.innerText = "ADD TO CART";
+        }
+
+        // update URL
+        const variantId = selected.value;
+        history.replaceState({}, "", `${product_url}?variant=${variantId}`);
+    }
+
+    // init
+    updateVariant();
+
+    // select change event
+    variantSelect.addEventListener("change", updateVariant);
+
+    // radio button click → sync to dropdown
+    document.querySelectorAll('#productVariants input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+            const selectedOptions = [...document.querySelectorAll('#productVariants input:checked')].map(el => el.value.toLowerCase());
+            const matchKey = selectedOptions.join("-");
+
+            [...variantSelect.options].forEach(opt => {
+                if (opt.dataset.name === matchKey) {
+                    opt.selected = true;
+                }
+            });
+
+            updateVariant();
+        });
+    });
 });
 
 </script>
