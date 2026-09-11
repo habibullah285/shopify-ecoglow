@@ -117,7 +117,7 @@
                         x-on:click="mobileMenuOpen = false"
                         type="button" 
                         class="bg-white rounded-md p-2 text-gray-500">
-                            {% render: 'icon-close' %}
+                            {% render 'icon-close' %}
                         </button>
                     </div>
                 </div>
@@ -185,4 +185,13 @@
             }
         ]
     }
-{% endschema %} 
+{% endschema %} {%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render: 'icon-close' %}"
+  to: "{% render 'icon-close' %}"
+  position: 5814..5839
+{%- endcomment -%}
